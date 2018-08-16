@@ -38,7 +38,7 @@ export default class Player extends Component {
 
   render() {
     // console.log(this.props.player.person_id);
-    this.addPieToDB()
+    // this.addPieToDB()
     return (
       <React.Fragment>
         <div className="ui card blue ">
