@@ -1,18 +1,21 @@
 import React from "react";
 import NewUserForm from "./NewUserForm";
+import UserContainer from "../Containers/UserContainer";
 
 export default function User({
   user,
   username,
   displayNewUserForm,
-  handleCreateUser
+  handleCreateUser,
+  players
 }) {
   return (
     <div>
-      <h1>User Component</h1>
       {displayNewUserForm ? (
         <NewUserForm username={username} handleCreateUser={handleCreateUser} />
-      ) : null}
+      ) : (
+        <UserContainer user={user} players={players} />
+      )}
     </div>
   );
 }

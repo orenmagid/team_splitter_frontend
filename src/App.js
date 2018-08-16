@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import PlayerList from "./Containers/PlayerList";
+import ComparisonsContainer from "./Containers/ComparisonsContainer";
 import NavBar from "./Components/NavBar";
 import User from "./Components/User";
 
@@ -47,19 +47,19 @@ class App extends Component {
 
   checkForExistingUser = (users, username) => {
     console.log("Inside checkForExistingUser");
-    console.log(users)
-    const user = users.find(user => user.username === username)
+    console.log(users);
+    const user = users.find(user => user.username === username);
 
-    if(user === undefined) {
+    if (user === undefined) {
       this.setState({
         username: username
-      })
-      this.createNewUser(username)
+      });
+      this.createNewUser(username);
     } else {
       this.setState({
         user: user,
         username: username
-      })
+      });
     }
   };
   createNewUser = username => {
@@ -108,9 +108,8 @@ class App extends Component {
           user={this.state.user}
           username={this.state.username}
           handleCreateUser={this.handleCreateUser}
+          players={this.state.allNbaPlayers}
         />
-
-        <PlayerList players={this.state.allNbaPlayers} />
       </div>
     );
   }
