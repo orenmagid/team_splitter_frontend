@@ -7,12 +7,22 @@ export default class ComparisonsContainer extends Component {
     selectedUser: ""
   };
 
+  handleSelect = event => {
+    let currentUser = this.props.users.find(user => {
+      return user.id === parseInt(event.target.value);
+    });
+    console.log(currentUser);
+    this.setState({
+      selectedUser: currentUser
+    });
+  };
+
   render() {
     return (
       <div>
         <select
           className="ui dropdown"
-          onChange={this.props.handleSelect}
+          onChange={this.handleSelect}
           value={this.state.selectedUser}
         >
           {this.props.users.map(user => {
@@ -23,6 +33,9 @@ export default class ComparisonsContainer extends Component {
             );
           })}
         </select>
+
+        {/* Conditionally Render Some Number of Players So User Can Make Comparisons once there's a selectedUser in State
+        onClick of Player of Player Card, Post new comparison */}
 
         <div className="ui three doubling stackable cards">
           {this.props.players.map(player => {

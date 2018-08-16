@@ -6,8 +6,7 @@ export default class UserContainer extends Component {
   state = {
     showComparisons: false,
     currentGroup: null,
-    usersInCurrentGroup: [],
-    selectedUser: ""
+    usersInCurrentGroup: []
   };
 
   handleClick = (group, users) => {
@@ -15,16 +14,6 @@ export default class UserContainer extends Component {
       showComparisons: true,
       currentGroup: group,
       usersInCurrentGroup: users
-    });
-  };
-
-  handleSelect = event => {
-    let currentUser = this.state.usersInCurrentGroup.find(user => {
-      return user.id === parseInt(event.target.value);
-    });
-    console.log(currentUser);
-    this.setState({
-      selectedUser: currentUser
     });
   };
 
