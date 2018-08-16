@@ -12,7 +12,7 @@ export default class PlayerList extends Component {
       <React.Fragment>
         <div className="ui three doubling stackable cards">
           {this.props.players.map(player => {
-            return <Player key={player.person_id} player={player} />;
+            return <Player key={player.id} player={player} />;
           })}
         </div>
 
