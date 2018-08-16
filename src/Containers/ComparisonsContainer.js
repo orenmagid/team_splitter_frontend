@@ -18,6 +18,15 @@ export default class ComparisonsContainer extends Component {
   };
 
   render() {
+    let players = (
+      <div className="ui three doubling stackable cards">
+        {this.props.players.map(player => {
+          return <Player key={player.id} player={player} />;
+        })}
+      </div>
+    );
+
+    let selectedUser = this.state.selectedUser;
     return (
       <div>
         <select
@@ -37,11 +46,7 @@ export default class ComparisonsContainer extends Component {
         {/* Conditionally Render Some Number of Players So User Can Make Comparisons once there's a selectedUser in State
         onClick of Player of Player Card, Post new comparison */}
 
-        <div className="ui three doubling stackable cards">
-          {this.props.players.map(player => {
-            return <Player key={player.id} player={player} />;
-          })}
-        </div>
+        {selectedUser ? players : null}
       </div>
     );
   }
