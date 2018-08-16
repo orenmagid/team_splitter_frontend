@@ -47,19 +47,20 @@ class App extends Component {
 
   checkForExistingUser = (users, username) => {
     console.log("Inside checkForExistingUser");
-    users.forEach(user => {
-      if (user.username === username) {
-        this.setState({
-          user: user,
-          username: username
-        });
-      } else {
-        this.setState({
-          username: username
-        });
-        this.createNewUser(username);
-      }
-    });
+    console.log(users)
+    const user = users.find(user => user.username === username)
+
+    if(user === undefined) {
+      this.setState({
+        username: username
+      })
+      this.createNewUser(username)
+    } else {
+      this.setState({
+        user: user,
+        username: username
+      })
+    }
   };
   createNewUser = username => {
     console.log("Inside createNewUser");
