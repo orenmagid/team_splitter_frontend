@@ -13,7 +13,7 @@ export default class MakeComparisonsContainer extends Component {
   }
 
   componentDidMount() {
-    fetch("http://localhost:3000/api/v1/nba_players")
+    fetch("https://limitless-bayou-72938.herokuapp.com/api/v1/nba_players")
       .then(res => res.json())
       .then(jsonData => {
         // console.log(jsonData);
@@ -28,7 +28,7 @@ export default class MakeComparisonsContainer extends Component {
   }
 
   componentWillUpdate() {
-    fetch("http://localhost:3000/api/v1/nba_players")
+    fetch("https://limitless-bayou-72938.herokuapp.com/api/v1/nba_players")
       .then(res => res.json())
       .then(jsonData => {
         // console.log(jsonData);
@@ -58,7 +58,7 @@ export default class MakeComparisonsContainer extends Component {
       nba_player_id: nbaPlayer.id,
       pie: nbaPlayer.pie
     }
-    fetch(`http://localhost:3000/api/v1/comparisons`,
+    fetch(`https://limitless-bayou-72938.herokuapp.com/api/v1/comparisons`,
   {
     method: "POST",
     body: JSON.stringify(data),

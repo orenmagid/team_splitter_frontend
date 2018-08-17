@@ -13,7 +13,7 @@ export default class ComparisonsContainer extends Component {
   }
 
   componentDidMount() {
-    fetch("http://localhost:3000/api/v1/nba_players")
+    fetch("https://limitless-bayou-72938.herokuapp.com/api/v1/nba_players")
       .then(res => res.json())
       .then(jsonData => {
         // console.log(jsonData);
@@ -28,7 +28,7 @@ export default class ComparisonsContainer extends Component {
   }
 
   componentWillUpdate() {
-    fetch("http://localhost:3000/api/v1/nba_players")
+    fetch("https://limitless-bayou-72938.herokuapp.com/api/v1/nba_players")
       .then(res => res.json())
       .then(jsonData => {
         // console.log(jsonData);

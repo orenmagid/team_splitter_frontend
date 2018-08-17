@@ -8,7 +8,7 @@ export default class Player extends Component {
   addPieToDB = () => {
     const pie = this.state.pie;
 
-    fetch(`http://localhost:3000/api/v1/nba_players/${this.props.player.id}`, {
+    fetch(`https://limitless-bayou-72938.herokuapp.com/api/v1/nba_players/${this.props.player.id}`, {
       method: "PATCH",
       body: JSON.stringify({
         pie: pie

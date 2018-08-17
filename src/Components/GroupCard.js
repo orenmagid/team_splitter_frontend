@@ -12,7 +12,11 @@ export default class GroupCard extends Component {
   }
 
   componentDidMount() {
-    fetch(`http://localhost:3000/api/v1/groups/${this.props.group.id}`)
+    fetch(
+      `https://limitless-bayou-72938.herokuapp.com/api/v1/groups/${
+        this.props.group.id
+      }`
+    )
       .then(res => res.json())
       .then(jsonData => {
         let uniqueUsers = this.removeDuplicates(jsonData.users, "id");

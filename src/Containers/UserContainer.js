@@ -35,7 +35,7 @@ export default class UserContainer extends Component {
 
   fetchGroupForComparisons = group => {
     console.log(group.id);
-    fetch(`http://localhost:3000/api/v1/comparisons`)
+    fetch(`https://limitless-bayou-72938.herokuapp.com/api/v1/comparisons`)
       .then(response => response.json())
       .then(comparisonsData => {
         let currentGroupComparisons = comparisonsData.filter(comparison => {
