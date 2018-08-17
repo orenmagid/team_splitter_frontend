@@ -7,27 +7,10 @@ import "./App.css";
 
 class App extends Component {
   state = {
-    allNbaPlayers: [],
     user: null,
     displayNewUserForm: false,
     username: ""
   };
-  componentDidMount() {
-    fetch("http://localhost:3000/api/v1/nba_players")
-      .then(res => res.json())
-      .then(jsonData => {
-        // console.log(jsonData);
-        this.setState({
-          allNbaPlayers: jsonData
-        });
-      });
-  }
-
-  // pieUtility = () => {
-  //   let allNbaPlayers = this.state.allNbaPlayers;
-  //   allNbaPlayers.
-  //
-  // };
 
   handleSubmit = e => {
     e.preventDefault();
@@ -96,7 +79,7 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App ">
+      <div className="App">
         <header className="App-header">
           <div className="ui inverted segment">
             <div className="ui inverted secondary pointing menu" />
@@ -108,7 +91,6 @@ class App extends Component {
           user={this.state.user}
           username={this.state.username}
           handleCreateUser={this.handleCreateUser}
-          players={this.state.allNbaPlayers}
         />
       </div>
     );

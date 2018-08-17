@@ -46,7 +46,7 @@ export default class GroupCard extends Component {
           <div className="extra content" />
           <button
             onClick={() => handleClick(group, this.state.users)}
-            className="ui basic button"
+            className="ui secondary basic button"
           >
             Make Comparsons
           </button>

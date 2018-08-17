@@ -9,3 +9,11 @@ img {
   box-shadow: 1px 1px 1px #f7fbff;
   border: 6px;
 }
+
+button {
+  margin: 10px;
+}
+
+.dropdown {
+  margin: 50px;
+}

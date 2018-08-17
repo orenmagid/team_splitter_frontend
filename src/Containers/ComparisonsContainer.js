@@ -2,28 +2,78 @@ import React, { Component } from "react";
 import Player from "../Components/Player";
 
 export default class ComparisonsContainer extends Component {
-  state = {
-    selectedPlayer: null,
-    selectedUser: ""
-  };
+  constructor(props) {
+    super(props);
+    this.allNbaPlayers = [];
+    this.state = {
+      selectedPlayer: null,
+      selectedUser: "",
+      allNbaPlayers: []
+    };
+  }
+
+  componentDidMount() {
+    fetch("http://localhost:3000/api/v1/nba_players")
+      .then(res => res.json())
+      .then(jsonData => {
+        // console.log(jsonData);
+        // this.setState({
+        //   allNbaPlayers: jsonData
+        // });
+        this.allNbaPlayers = jsonData;
+        this.setState({
+          selectedUser: this.state.selectedUser
+        });
+      });
+  }
+
+  componentWillUpdate() {
+    fetch("http://localhost:3000/api/v1/nba_players")
+      .then(res => res.json())
+      .then(jsonData => {
+        // console.log(jsonData);
+        // this.setState({
+        //   allNbaPlayers: jsonData
+        // });
+        this.allNbaPlayers = jsonData;
+        // this.setState({
+        //   selectedUser: this.state.selectedUser
+        // });
+      });
+  }
 
   handleSelect = event => {
-    let currentUser = this.props.users.find(user => {
-      return user.id === parseInt(event.target.value);
-    });
-    console.log(currentUser);
+    event.preventDefault();
+    if (event.target.value !== "default") {
+      let currentUser = this.props.users.find(user => {
+        return user.id === parseInt(event.target.value);
+      });
+      console.log(currentUser);
+      this.setState({
+        selectedUser: currentUser
+      });
+    }
+  };
+  triggerReRender = () => {
     this.setState({
-      selectedUser: currentUser
+      selectedUser: this.state.selectedUser
     });
   };
-
   render() {
+    console.log("this.allNbaPlayers", this.allNbaPlayers);
+
     let players = (
-      <div className="ui three doubling stackable cards">
-        {this.props.players.map(player => {
-          return <Player key={player.id} player={player} />;
-        })}
-      </div>
+      <React.Fragment>
+        <h3>
+          Out of your group, which player is {this.state.selectedUser.name} most
+          similar to.
+        </h3>
+        <div className="ui three doubling stackable cards">
+          {this.allNbaPlayers.map(player => {
+            return <Player key={player.id} player={player} />;
+          })}
+        </div>
+      </React.Fragment>
     );
 
     let selectedUser = this.state.selectedUser;
@@ -34,6 +84,9 @@ export default class ComparisonsContainer extends Component {
           onChange={this.handleSelect}
           value={this.state.selectedUser}
         >
+          <option className="item" value="default" key="default">
+            Select a Group Member to Compare
+          </option>
           {this.props.users.map(user => {
             return (
               <option className="item" value={user.id} key={user.id}>
@@ -42,6 +95,13 @@ export default class ComparisonsContainer extends Component {
             );
           })}
         </select>
+        <br />
+        <button
+          onClick={this.triggerReRender}
+          className="ui secondary basic button"
+        >
+          Get New Players
+        </button>
 
         {/* Conditionally Render Some Number of Players So User Can Make Comparisons once there's a selectedUser in State
         onClick of Player of Player Card, Post new comparison */}

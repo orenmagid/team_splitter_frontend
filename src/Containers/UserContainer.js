@@ -20,7 +20,7 @@ export default class UserContainer extends Component {
   render() {
     if (this.props.user !== null) {
       return (
-        <div>
+        <div className="ui container">
           <h2>Welcome, {this.props.user.name}!</h2>
           <div className="ui cards">
             {this.props.user.groups.map(group => (
@@ -35,7 +35,6 @@ export default class UserContainer extends Component {
             <ComparisonsContainer
               group={this.state.currentGroup}
               users={this.state.usersInCurrentGroup}
-              players={this.props.players}
               handleSelect={this.handleSelect}
             />
           ) : null}

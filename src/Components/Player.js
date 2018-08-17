@@ -5,20 +5,6 @@ export default class Player extends Component {
     pie: ""
   };
 
-  componentDidMount() {
-    // fetch(
-    //   `http://stats.nba.com/stats/playerdashboardbyyearoveryear/?measureType=Advanced&perMode=PerGame&plusMinus=N&paceAdjust=N&rank=N&leagueId=00&season=2017-18&seasonType=Regular+Season&playerId=${
-    //     this.props.player.person_id
-    //   }&outcome=&location=&month=0&seasonSegment=&dateFrom=&dateTo=&opponentTeamId=0&vsConference=&vsDivision=&gameSegment=&period=0&shotClockRange=&lastNGames=0`
-    // )
-    //   .then(res => res.json())
-    //   .then(jsonData => {
-    //     this.setState({
-    //       pie: jsonData.resultSets[0].rowSet[0][24]
-    //     });
-    //   });
-  }
-
   addPieToDB = () => {
     const pie = this.state.pie;
 
@@ -37,7 +23,30 @@ export default class Player extends Component {
 
   render() {
     // this.addPieToDB();
-    let url = `https://nba-players.herokuapp.com/players/${this.props.player.last_name.toLowerCase()}/${this.props.player.first_name.toLowerCase()}`;
+    let suffix = "";
+    console.log("this.props.player.last_name", this.props.player.last_name);
+    let lastName = this.props.player.last_name.split(" ")[0].toLowerCase();
+    console.log("lastName", lastName);
+    suffix = this.props.player.last_name.split(" ")[1];
+
+    console.log("suffix", suffix);
+    if (suffix !== "" && suffix !== undefined) {
+      lastName = `${lastName}_${suffix.toLowerCase().split(".")[0]}`;
+    }
+    console.log(lastName);
+
+    let url;
+    if (lastName === "") {
+      url = `https://nba-players.herokuapp.com/players/${this.props.player.first_name
+        .toLowerCase()
+        .replace(/'/g, "A")}`;
+    } else {
+      url = `https://nba-players.herokuapp.com/players/${lastName
+        .toLowerCase()
+        .replace(/'/g, "A")}/${this.props.player.first_name
+        .replace(/'/g, "A")
+        .toLowerCase()}`;
+    }
 
     return (
       <React.Fragment>
@@ -62,6 +71,13 @@ export default class Player extends Component {
               <p>PIE: {this.props.player.pie}</p>
             </div>
             <div className="extra content" />
+            <br />
+            <button
+              // onClick={this.showStats}
+              className="ui secondary basic button"
+            >
+              Make Comparison
+            </button>
           </div>
         </div>
       </React.Fragment>

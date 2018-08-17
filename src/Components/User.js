@@ -6,15 +6,14 @@ export default function User({
   user,
   username,
   displayNewUserForm,
-  handleCreateUser,
-  players
+  handleCreateUser
 }) {
   return (
     <div>
       {displayNewUserForm ? (
         <NewUserForm username={username} handleCreateUser={handleCreateUser} />
       ) : (
-        <UserContainer user={user} players={players} />
+        <UserContainer user={user} />
       )}
     </div>
   );
