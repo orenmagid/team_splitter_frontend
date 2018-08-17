@@ -27,7 +27,9 @@ export default function UserComparisonCard({ user, comparisons }) {
           <div className="meta" />
           <div className="description">
             <p>Height: {user.height} Inches</p>
-            <p>Average PIE of Comparisons: {avg.toFixed(2)}</p>
+            {userComparisons.length !== 0 ? (
+              <p>Average PIE of Comparisons: {avg.toFixed(2)}</p>
+            ) : null}
           </div>
           <div className="extra content" />
           <br />
