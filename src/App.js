@@ -21,7 +21,7 @@ class App extends Component {
 
   getUser = username => {
     console.log("Inside getUser");
-    fetch(`http://localhost:3000/api/v1/users`)
+    fetch(`https://limitless-bayou-72938.herokuapp.com//api/v1/users`)
       .then(response => response.json())
       .then(users => {
         this.checkForExistingUser(users, username);
@@ -61,7 +61,7 @@ class App extends Component {
       age: e.currentTarget.age.value
     };
 
-    fetch(`http://localhost:3000/api/v1/users`, {
+    fetch(`https://limitless-bayou-72938.herokuapp.com/api/v1/users`, {
       method: "POST",
       body: JSON.stringify(data),
       headers: {
