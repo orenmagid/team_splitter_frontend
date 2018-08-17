@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Player from "../Components/Player";
 
-export default class ComparisonsContainer extends Component {
+export default class MakeComparisonsContainer extends Component {
   constructor(props) {
     super(props);
     this.allNbaPlayers = [];
@@ -42,6 +42,33 @@ export default class ComparisonsContainer extends Component {
       });
   }
 
+  handleClick = (nbaPlayer) => {
+    this.setState({
+      selectedPlayer: nbaPlayer
+    })
+
+    this.postComparison(nbaPlayer)
+  }
+
+  postComparison = (nbaPlayer) => {
+    let data = {
+      user_id: this.state.selectedUser.id,
+      rater_id: this.props.currentUser.id,
+      group_id: this.props.group.id,
+      nba_player_id: nbaPlayer.id,
+      pie: nbaPlayer.pie
+    }
+    fetch(`http://localhost:3000/api/v1/comparisons`,
+  {
+    method: "POST",
+    body: JSON.stringify(data),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  }).then(response => response.json())
+  .then(console.log)
+  }
+
   handleSelect = event => {
     event.preventDefault();
     if (event.target.value !== "default") {
@@ -70,7 +97,7 @@ export default class ComparisonsContainer extends Component {
         </h3>
         <div className="ui three doubling stackable cards">
           {this.allNbaPlayers.map(player => {
-            return <Player key={player.id} player={player} />;
+            return <Player key={player.id} player={player} handleClick={this.handleClick}/>;
           })}
         </div>
       </React.Fragment>

@@ -23,7 +23,7 @@ export default class GroupCard extends Component {
   }
 
   render() {
-    const { group, handleClick } = this.props;
+    const { group, handleMakeClick, handleShowClick } = this.props;
 
     return (
       <React.Fragment>
@@ -45,10 +45,16 @@ export default class GroupCard extends Component {
           </div>
           <div className="extra content" />
           <button
-            onClick={() => handleClick(group, this.state.users)}
+            onClick={() => handleMakeClick(group, this.state.users)}
             className="ui secondary basic button"
           >
-            Make Comparsons
+            Make Comparisons
+          </button>
+          <button
+            onClick={() => handleShowClick(group, this.state.users)}
+            className="ui secondary basic button"
+          >
+            Show Comparisons
           </button>
         </div>
       </React.Fragment>

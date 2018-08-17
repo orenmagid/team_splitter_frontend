@@ -73,7 +73,7 @@ export default class Player extends Component {
             <div className="extra content" />
             <br />
             <button
-              // onClick={this.showStats}
+              onClick={() => this.props.handleClick(this.props.player)}
               className="ui secondary basic button"
             >
               Make Comparison

@@ -1,21 +1,42 @@
 import React, { Component } from "react";
 import GroupCard from "../Components/GroupCard";
-import ComparisonsContainer from "./ComparisonsContainer";
+import MakeComparisonsContainer from "./MakeComparisonsContainer";
 
 export default class UserContainer extends Component {
   state = {
-    showComparisons: false,
+    showNbaPlayers: false,
     currentGroup: null,
-    usersInCurrentGroup: []
+    usersInCurrentGroup: [],
+    showExistingComparisons: false
   };
 
-  handleClick = (group, users) => {
+  handleMakeClick = (group, users) => {
     this.setState({
-      showComparisons: true,
+      showNbaPlayers: true,
       currentGroup: group,
-      usersInCurrentGroup: users
+      usersInCurrentGroup: users,
+      showExistingComparisons: false
     });
   };
+
+  handleShowClick = (group, users) => {
+    this.setState({
+      showNbaPlayers: false,
+      currentGroup: group,
+      usersInCurrentGroup: users,
+      showExistingComparisons: true
+
+    });
+  };
+
+
+  removeDuplicates(myArr, prop) {
+    return myArr.filter((obj, pos, arr) => {
+      return arr.map(mapObj => mapObj[prop]).indexOf(obj[prop]) === pos;
+    });
+  }
+
+
 
   render() {
     if (this.props.user !== null) {
@@ -23,19 +44,20 @@ export default class UserContainer extends Component {
         <div className="ui container">
           <h2>Welcome, {this.props.user.name}!</h2>
           <div className="ui cards">
-            {this.props.user.groups.map(group => (
+            {this.removeDuplicates(this.props.user.groups, "id").map(group => (
               <GroupCard
                 key={group.id}
                 group={group}
-                handleClick={this.handleClick}
+                handleMakeClick={this.handleMakeClick}
               />
             ))}
           </div>
-          {this.state.showComparisons ? (
-            <ComparisonsContainer
+          {this.state.showNbaPlayers ? (
+            <MakeComparisonsContainer
               group={this.state.currentGroup}
               users={this.state.usersInCurrentGroup}
               handleSelect={this.handleSelect}
+              currentUser={this.props.user}
             />
           ) : null}
         </div>
