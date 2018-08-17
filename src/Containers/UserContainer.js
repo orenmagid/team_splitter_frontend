@@ -8,8 +8,8 @@ export default class UserContainer extends Component {
     showNbaPlayers: false,
     currentGroup: null,
     usersInCurrentGroup: [],
-    showExistingComparisons: false,
-
+    currentGroupComparisons: [],
+    showExistingComparisons: false
   };
 
   handleMakeClick = (group, users) => {
@@ -25,24 +25,27 @@ export default class UserContainer extends Component {
   handleShowClick = (group, users) => {
     this.setState({
       showNbaPlayers: false,
+      currentGroup: group,
       usersInCurrentGroup: users,
       showExistingComparisons: true
     });
 
-    this.fetchGroupForComparisons(group)
+    this.fetchGroupForComparisons(group);
   };
 
-  fetchGroupForComparisons = (group) => {
-    console.log(group.id)
-    fetch(`http://localhost:3000/api/v1/groups/${group.id}`)
-    .then(response => response.json())
-    .then(groupData => {
-      this.setState({
-        currentGroup: groupData
-      })
-    })
-  }
-
+  fetchGroupForComparisons = group => {
+    console.log(group.id);
+    fetch(`http://localhost:3000/api/v1/comparisons`)
+      .then(response => response.json())
+      .then(comparisonsData => {
+        let currentGroupComparisons = comparisonsData.filter(comparison => {
+          return comparison.group_id === group.id;
+        });
+        this.setState({
+          currentGroupComparisons: currentGroupComparisons
+        });
+      });
+  };
 
   removeDuplicates(myArr, prop) {
     return myArr.filter((obj, pos, arr) => {
@@ -50,9 +53,8 @@ export default class UserContainer extends Component {
     });
   }
 
-
-
   render() {
+    console.log("this.state.allComparisons", this.state.allComparisons);
     if (this.props.user !== null) {
       return (
         <div className="ui container">
@@ -76,11 +78,13 @@ export default class UserContainer extends Component {
             />
           ) : null}
           {this.state.showExistingComparisons ? (
-          <ShowComparisonsContainer 
-            group={this.state.currentGroup}
-            users={this.state.usersInCurrentGroup}
-            currentUser={this.props.user}
-            />) : null}
+            <ShowComparisonsContainer
+              group={this.state.currentGroup}
+              comparisons={this.state.currentGroupComparisons}
+              users={this.state.usersInCurrentGroup}
+              currentUser={this.props.user}
+            />
+          ) : null}
         </div>
       );
     }

@@ -24,16 +24,16 @@ export default class Player extends Component {
   render() {
     // this.addPieToDB();
     let suffix = "";
-    console.log("this.props.player.last_name", this.props.player.last_name);
+    // console.log("this.props.player.last_name", this.props.player.last_name);
     let lastName = this.props.player.last_name.split(" ")[0].toLowerCase();
-    console.log("lastName", lastName);
+    // console.log("lastName", lastName);
     suffix = this.props.player.last_name.split(" ")[1];
 
-    console.log("suffix", suffix);
+    // console.log("suffix", suffix);
     if (suffix !== "" && suffix !== undefined) {
       lastName = `${lastName}_${suffix.toLowerCase().split(".")[0]}`;
     }
-    console.log(lastName);
+    // console.log(lastName);
 
     let url;
     if (lastName === "") {
