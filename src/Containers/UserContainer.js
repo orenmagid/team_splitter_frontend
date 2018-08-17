@@ -1,13 +1,15 @@
 import React, { Component } from "react";
 import GroupCard from "../Components/GroupCard";
 import MakeComparisonsContainer from "./MakeComparisonsContainer";
+import ShowComparisonsContainer from "./ShowComparisonsContainer";
 
 export default class UserContainer extends Component {
   state = {
     showNbaPlayers: false,
     currentGroup: null,
     usersInCurrentGroup: [],
-    showExistingComparisons: false
+    showExistingComparisons: false,
+
   };
 
   handleMakeClick = (group, users) => {
@@ -15,19 +17,31 @@ export default class UserContainer extends Component {
       showNbaPlayers: true,
       currentGroup: group,
       usersInCurrentGroup: users,
-      showExistingComparisons: false
+      showExistingComparisons: false,
+      currentComparisons: []
     });
   };
 
   handleShowClick = (group, users) => {
     this.setState({
       showNbaPlayers: false,
-      currentGroup: group,
       usersInCurrentGroup: users,
       showExistingComparisons: true
-
     });
+
+    this.fetchGroupForComparisons(group)
   };
+
+  fetchGroupForComparisons = (group) => {
+    console.log(group.id)
+    fetch(`http://localhost:3000/api/v1/groups/${group.id}`)
+    .then(response => response.json())
+    .then(groupData => {
+      this.setState({
+        currentGroup: groupData
+      })
+    })
+  }
 
 
   removeDuplicates(myArr, prop) {
@@ -49,6 +63,7 @@ export default class UserContainer extends Component {
                 key={group.id}
                 group={group}
                 handleMakeClick={this.handleMakeClick}
+                handleShowClick={this.handleShowClick}
               />
             ))}
           </div>
@@ -60,6 +75,12 @@ export default class UserContainer extends Component {
               currentUser={this.props.user}
             />
           ) : null}
+          {this.state.showExistingComparisons ? (
+          <ShowComparisonsContainer 
+            group={this.state.currentGroup}
+            users={this.state.usersInCurrentGroup}
+            currentUser={this.props.user}
+            />) : null}
         </div>
       );
     }

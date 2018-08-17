@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import ComparisonsContainer from "./Containers/ComparisonsContainer";
+import MakeComparisonsContainer from "./Containers/MakeComparisonsContainer";
 import NavBar from "./Components/NavBar";
 import User from "./Components/User";
 
