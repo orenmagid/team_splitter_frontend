@@ -5,20 +5,21 @@ export default class UserComparisonCard extends Component {
     active: false
   };
 
-  handleToggle = () => {
-    let active = this.state.active;
-    if (active) {
+  handleToggle = avg => {
+    if (this.state.active) {
       this.props.removeFromActivePlayers(this.props.user);
     } else {
-      this.props.addToActivePlayers(this.props.user);
+      let userWithAverage = this.props.user;
+      userWithAverage.pie = avg;
+      this.props.addToActivePlayers(userWithAverage);
     }
     this.setState({
-      active: !active
+      active: !this.state.active
     });
   };
 
   render() {
-    let { user, comparisons } = this.props;
+    let { user, comparisons, active } = this.props;
 
     let userComparisons = comparisons.filter(
       comparison => comparison.user_id === user.id
@@ -59,7 +60,8 @@ export default class UserComparisonCard extends Component {
               <input
                 type="checkbox"
                 name="active"
-                onChange={this.handleToggle}
+                onChange={() => this.handleToggle(avg)}
+                checked={this.state.active}
               />
               <label>Currently Playing?</label>
             </div>

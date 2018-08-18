@@ -54,7 +54,6 @@ export default class UserContainer extends Component {
   }
 
   render() {
-    console.log("this.state.allComparisons", this.state.allComparisons);
     if (this.props.user !== null) {
       return (
         <div className="ui container">
