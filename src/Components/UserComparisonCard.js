@@ -25,14 +25,33 @@ export default class UserComparisonCard extends Component {
       comparison => comparison.user_id === user.id
     );
 
-    let sum = 0;
+    let sumPie = 0;
     for (let i = 0; i < userComparisons.length; i++) {
-      sum += parseInt(userComparisons[i].pie, 10);
+      sumPie += parseFloat(userComparisons[i].pie, 10) * 100;
     }
 
-    let avg = sum / userComparisons.length;
+    let avgPie = sumPie / userComparisons.length;
 
-    console.log("avg", avg);
+    let sumUSG = 0;
+    for (let i = 0; i < userComparisons.length; i++) {
+      sumUSG += parseFloat(userComparisons[i].usg, 10) * 100;
+    }
+
+    let avgUSG = sumUSG / userComparisons.length;
+
+    let sumOff = 0;
+    for (let i = 0; i < userComparisons.length; i++) {
+      sumOff += parseFloat(userComparisons[i].offrtg, 10);
+    }
+
+    let avgOff = sumOff / userComparisons.length;
+
+    let sumDef = 0;
+    for (let i = 0; i < userComparisons.length; i++) {
+      sumDef += parseFloat(userComparisons[i].dfrtg, 10);
+    }
+
+    let avgDef = sumDef / userComparisons.length;
 
     return (
       <React.Fragment>
@@ -49,7 +68,14 @@ export default class UserComparisonCard extends Component {
               <p>Height: {user.height} Inches</p>
               {userComparisons.length !== 0 ? (
                 <React.Fragment>
-                  <p>Average PIE of Comparisons: {avg.toFixed(2)}</p>
+                  <p>Average PIE of Comparisons: {avgPie.toFixed(2)}</p>
+                  <p>Average Usage Percentage: {avgUSG.toFixed(2)}%</p>
+                  <p>
+                    Average Off. Efficiency of Comparisons: {avgOff.toFixed(2)}
+                  </p>
+                  <p>
+                    Average Def. Efficiency of Comparisons: {avgDef.toFixed(2)}
+                  </p>
                   <p>Number of Comparisons: {userComparisons.length}</p>
                 </React.Fragment>
               ) : null}
@@ -60,7 +86,7 @@ export default class UserComparisonCard extends Component {
               <input
                 type="checkbox"
                 name="active"
-                onChange={() => this.handleToggle(avg)}
+                onChange={() => this.handleToggle(avgPie)}
                 checked={this.state.active}
               />
               <label>Currently Playing?</label>

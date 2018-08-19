@@ -42,32 +42,35 @@ export default class MakeComparisonsContainer extends Component {
       });
   }
 
-  handleClick = (nbaPlayer) => {
+  handleClick = nbaPlayer => {
     this.setState({
       selectedPlayer: nbaPlayer
-    })
+    });
 
-    this.postComparison(nbaPlayer)
-  }
+    this.postComparison(nbaPlayer);
+  };
 
-  postComparison = (nbaPlayer) => {
+  postComparison = nbaPlayer => {
     let data = {
       user_id: this.state.selectedUser.id,
       rater_id: this.props.currentUser.id,
       group_id: this.props.group.id,
       nba_player_id: nbaPlayer.id,
-      pie: nbaPlayer.pie
-    }
-    fetch(`https://limitless-bayou-72938.herokuapp.com/api/v1/comparisons`,
-  {
-    method: "POST",
-    body: JSON.stringify(data),
-    headers: {
-      "Content-Type": "application/json"
-    }
-  }).then(response => response.json())
-  .then(console.log)
-  }
+      pie: nbaPlayer.pie,
+      offrtg: nbaPlayer.offrtg,
+      dfrtg: nbaPlayer.dfrtg,
+      usg: nbaPlayer.usg
+    };
+    fetch(`https://limitless-bayou-72938.herokuapp.com/api/v1/comparisons`, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(response => response.json())
+      .then(console.log);
+  };
 
   handleSelect = event => {
     event.preventDefault();
@@ -97,7 +100,13 @@ export default class MakeComparisonsContainer extends Component {
         </h3>
         <div className="ui three doubling stackable cards">
           {this.allNbaPlayers.map(player => {
-            return <Player key={player.id} player={player} handleClick={this.handleClick}/>;
+            return (
+              <Player
+                key={player.id}
+                player={player}
+                handleClick={this.handleClick}
+              />
+            );
           })}
         </div>
       </React.Fragment>
@@ -134,6 +143,13 @@ export default class MakeComparisonsContainer extends Component {
         onClick of Player of Player Card, Post new comparison */}
 
         {selectedUser ? players : null}
+
+        {/* <button
+          onClick={this.triggerReRender}
+          className="ui secondary basic button"
+        >
+          Get New Players
+        </button> */}
       </div>
     );
   }

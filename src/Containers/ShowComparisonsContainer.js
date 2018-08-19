@@ -28,10 +28,13 @@ export default class ShowComparisonsContainer extends Component {
 
     if (activePlayers.length >= 4) {
       if (activePlayers.length % 2 !== 0) {
-        activePlayers = activePlayers.splice(
-          (Math.floor(Math.random() * this.state.activePlayers.length), 1)
-        );
+        let index = Math.floor(Math.random() * activePlayers.length);
+        activePlayers = activePlayers.filter(player => {
+          return player !== activePlayers[index];
+        });
+        console.log("index", index);
       }
+
       this.generateTeams(activePlayers);
     }
   };
@@ -45,21 +48,22 @@ export default class ShowComparisonsContainer extends Component {
     let teamB = [];
     for (let i = 0; i < activePlayers.length; i++) {
       if (i % 2 === 0) {
-        teamA.push(activePlayers[i]);
+        if (i === activePlayers.length - 2) {
+          teamB.push(activePlayers[i]);
+        } else {
+          teamA.push(activePlayers[i]);
+        }
       } else {
-        teamB.push(activePlayers[i]);
+        if (i === activePlayers.length - 1) {
+          teamA.push(activePlayers[i]);
+        } else {
+          teamB.push(activePlayers[i]);
+        }
       }
     }
-    let teamAOne = teamA[1];
-    let teamBOne = teamB[1];
-    teamA.splice(1, 1, teamBOne);
-    teamB.splice(1, 1, teamAOne);
-    if (activePlayers.length > 4) {
-      let teamALast = teamA[teamA.length - 1];
-      let teamBLast = teamB[teamB.length - 1];
-      teamA.splice(1, 1, teamBLast);
-      teamB.splice(1, 1, teamALast);
-    }
+
+    console.log("teamA", teamA);
+    console.log("teamB", teamB);
 
     this.setState({
       teamA: teamA,
