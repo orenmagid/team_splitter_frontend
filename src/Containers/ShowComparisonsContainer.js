@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import UserComparisonCard from "../Components/UserComparisonCard";
+import TeamCard from "../Components/TeamCard";
 
 export default class ShowComparisonsContainer extends Component {
   state = {
     activePlayers: [],
+    showTeams: false,
     teamA: [],
     teamB: []
   };
@@ -74,15 +76,19 @@ export default class ShowComparisonsContainer extends Component {
   render() {
     return (
       <div>
+        <div className="ui two doubling stackable cards">
+          <TeamCard team={this.state.teamA} />
+          <TeamCard team={this.state.teamB} />
+
+          <br />
+        </div>
         <br />
         <button
           onClick={this.getEvenNumOfPlayers}
-          className="ui secondary basic button"
+          className="ui secondary basic centered button"
         >
           Generate Teams
         </button>
-        <br />
-
         <br />
         <div className="ui three doubling stackable cards">
           {this.props.users.map(user => {

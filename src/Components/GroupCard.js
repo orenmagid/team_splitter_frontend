@@ -36,16 +36,19 @@ export default class GroupCard extends Component {
             <div className="header"> Group: {group.name}</div>
             <div className="meta" />
             <div className="description" />
-            <ul>
+            <div className="ui mini horizontal divided list">
               {this.state.users.map(user => {
                 return (
-                  <li key={user.id}>
-                    Name: {user.name}, Age: {user.age}, Height: {user.height}{" "}
-                    Inches
-                  </li>
+                  <div key={user.id} className="item">
+                    <i className="ui avatar basketball ball icon" />
+
+                    <div className="content">
+                      <div className="header">{user.name}</div>
+                    </div>
+                  </div>
                 );
               })}
-            </ul>
+            </div>
           </div>
           <div className="extra content" />
           <button

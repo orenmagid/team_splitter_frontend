@@ -57,12 +57,10 @@ export default class UserComparisonCard extends Component {
       <React.Fragment>
         <div className="ui card blue ">
           <div className="content">
-            {/* <img
-              className="ui medium rounded image"
-              src={url}
-              alt="player-picture"
-            /> */}
-            <div className="header">{user.name}</div>
+            <div className="header">
+              <i className="basketball ball icon" />
+              {user.name}
+            </div>
             <div className="meta" />
             <div className="description">
               <p>Height: {user.height} Inches</p>
