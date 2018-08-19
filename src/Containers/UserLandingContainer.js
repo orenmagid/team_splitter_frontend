@@ -1,8 +1,8 @@
 import React from "react";
-import NewUserForm from "./NewUserForm";
+import NewUserForm from "../Components/NewUserForm";
 import UserContainer from "../Containers/UserContainer";
 
-export default function User({
+export default function UserLandingContainer({
   user,
   username,
   displayNewUserForm,

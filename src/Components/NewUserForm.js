@@ -5,8 +5,12 @@ export default function NewUserForm({ username, handleCreateUser }) {
     <form className="ui form" onSubmit={handleCreateUser}>
       <div className="field">
         <label>UserName</label>
-        <input type="text" name="username" placeholder={username} />
+        <input type="text" name="username" placeholder="username" />
       </div>
+      {/* <div className="field">
+        <label>Password</label>
+        <input type="text" name="password" placeholder="password" />
+      </div> */}
       <div className="field">
         <label>Name</label>
         <input type="text" name="name" placeholder="Name" />

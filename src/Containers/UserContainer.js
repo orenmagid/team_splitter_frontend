@@ -4,18 +4,24 @@ import MakeComparisonsContainer from "./MakeComparisonsContainer";
 import ShowComparisonsContainer from "./ShowComparisonsContainer";
 
 export default class UserContainer extends Component {
-  state = {
-    showNbaPlayers: false,
-    currentGroup: null,
-    usersInCurrentGroup: [],
-    currentGroupComparisons: []
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      showNbaPlayers: false,
+      user: null,
+      currentGroup: null,
+      usersInCurrentGroup: [],
+      currentGroupComparisons: [],
+      newGroupName: ""
+    };
+  }
 
   handleMakeClick = (group, users) => {
     this.setState({
       showNbaPlayers: true,
       currentGroup: group,
       usersInCurrentGroup: users,
+      newGroupName: "",
       showExistingComparisons: false,
       currentComparisons: []
     });
@@ -45,6 +51,46 @@ export default class UserContainer extends Component {
         });
       });
   };
+  handleGroupNameChange = e => {
+    let newGroupName = e.target.value;
+    this.setState({
+      newGroupName: newGroupName
+    });
+  };
+
+  handleNewGroupSubmit = e => {
+    e.target.reset();
+    e.preventDefault();
+
+    let newGroupName = this.state.newGroupName;
+
+    let data = {
+      name: newGroupName,
+      user_id: this.props.user.id
+    };
+
+    fetch(`https://limitless-bayou-72938.herokuapp.com/api/v1/groups`, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(response => response.json())
+      .then(jsonData => this.getUpdatedUserInfo(jsonData.users[0]));
+  };
+
+  getUpdatedUserInfo = user => {
+    fetch(
+      `https://limitless-bayou-72938.herokuapp.com//api/v1/users/${user.id}`
+    )
+      .then(response => response.json())
+      .then(user => {
+        this.setState({
+          user: user
+        });
+      });
+  };
 
   removeDuplicates(myArr, prop) {
     return myArr.filter((obj, pos, arr) => {
@@ -53,12 +99,14 @@ export default class UserContainer extends Component {
   }
 
   render() {
-    if (this.props.user !== null) {
+    let user = this.state.user ? this.state.user : this.props.user;
+    console.log("user", user);
+    if (user !== null) {
       return (
         <div className="ui container">
-          <h2>Welcome, {this.props.user.name}!</h2>
+          <h2>Welcome, {user.name}!</h2>
           <div className="ui cards">
-            {this.removeDuplicates(this.props.user.groups, "id").map(group => (
+            {this.removeDuplicates(user.groups, "id").map(group => (
               <GroupCard
                 key={group.id}
                 group={group}
@@ -66,13 +114,37 @@ export default class UserContainer extends Component {
                 handleShowClick={this.handleShowClick}
               />
             ))}
+
+            <div className="card">
+              <div className="content">
+                <div className="header"> Create New Group</div>
+                <div className="meta" />
+                <div className="description" />
+              </div>
+
+              <form className="ui form" onSubmit={this.handleNewGroupSubmit}>
+                <div className="field">
+                  <label>Group Name</label>
+                  <input
+                    onChange={this.handleGroupNameChange}
+                    type="text"
+                    name="groupname"
+                    placeholder="Group Name"
+                  />
+                </div>
+
+                <button type="submit" className="ui secondary basic button">
+                  <i className=" plus circle icon" />
+                </button>
+              </form>
+            </div>
           </div>
           {this.state.showNbaPlayers ? (
             <MakeComparisonsContainer
               group={this.state.currentGroup}
               users={this.state.usersInCurrentGroup}
               handleSelect={this.handleSelect}
-              currentUser={this.props.user}
+              currentUser={user}
             />
           ) : null}
           {this.state.showExistingComparisons ? (
@@ -80,7 +152,7 @@ export default class UserContainer extends Component {
               group={this.state.currentGroup}
               comparisons={this.state.currentGroupComparisons}
               users={this.state.usersInCurrentGroup}
-              currentUser={this.props.user}
+              currentUser={user}
             />
           ) : null}
         </div>

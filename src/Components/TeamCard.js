@@ -1,14 +1,17 @@
 import React from "react";
 
-export default function TeamCard({ team }) {
+export default function TeamCard({ team, name }) {
+  team = team.sort((a, b) => {
+    return a.pie - b.pie;
+  });
   return (
     <React.Fragment>
       <div className="ui card blue ">
         <div className="content">
-          <div className="header">Team</div>
+          <div className="header">{name}</div>
           <div className="meta" />
           <div className="description">
-            {team.map(player => {
+            {team.reverse().map(player => {
               return (
                 <p key={player.id}>
                   {" "}

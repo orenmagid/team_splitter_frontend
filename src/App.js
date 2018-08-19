@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import MakeComparisonsContainer from "./Containers/MakeComparisonsContainer";
 import NavBar from "./Components/NavBar";
-import User from "./Components/User";
+import UserLandingContainer from "./Containers/UserLandingContainer";
 
 import "./App.css";
 
@@ -56,6 +56,7 @@ class App extends Component {
     e.preventDefault();
     let data = {
       username: e.currentTarget.username.value,
+      // password: e.currentTarget.password.value,
       name: e.currentTarget.name.value,
       height: e.currentTarget.height.value,
       age: e.currentTarget.age.value
@@ -86,7 +87,7 @@ class App extends Component {
           </div>
           <NavBar user={this.state.user} handleSubmit={this.handleSubmit} />
         </header>
-        <User
+        <UserLandingContainer
           displayNewUserForm={this.state.displayNewUserForm}
           user={this.state.user}
           username={this.state.username}

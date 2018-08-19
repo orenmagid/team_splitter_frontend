@@ -42,10 +42,27 @@ export default class ShowComparisonsContainer extends Component {
   };
 
   generateTeams = activePlayers => {
+    let randPie = Math.floor(Math.random() * 19);
+    let randPie1 = Math.floor(Math.random() * 19);
+    let randPie2 = Math.floor(Math.random() * 19);
     activePlayers.sort((a, b) => {
+      if (isNaN(parseFloat(a.pie)) && isNaN(parseFloat(b.pie))) {
+        console.log("randPie1", randPie1);
+        console.log("randPie2", randPie2);
+        return randPie1 - randPie2;
+      }
+      if (isNaN(parseFloat(a.pie))) {
+        console.log("randPie", randPie);
+        return randPie - b.pie;
+      }
+      if (isNaN(parseFloat(b.pie))) {
+        console.log("randPie", randPie);
+        return a.pie - randPie;
+      }
       return a.pie - b.pie;
     });
     activePlayers.reverse();
+    console.log("activePlayers", activePlayers);
     let teamA = [];
     let teamB = [];
     for (let i = 0; i < activePlayers.length; i++) {
@@ -69,7 +86,8 @@ export default class ShowComparisonsContainer extends Component {
 
     this.setState({
       teamA: teamA,
-      teamB: teamB
+      teamB: teamB,
+      showTeams: true
     });
   };
 
@@ -77,18 +95,27 @@ export default class ShowComparisonsContainer extends Component {
     return (
       <div>
         <div className="ui two doubling stackable cards">
-          <TeamCard team={this.state.teamA} />
-          <TeamCard team={this.state.teamB} />
-
+          {this.state.showTeams ? (
+            <React.Fragment>
+              <TeamCard name="Team One" team={this.state.teamA} />
+              <TeamCard name="Team Two" team={this.state.teamB} />
+            </React.Fragment>
+          ) : null}
           <br />
         </div>
+
         <br />
-        <button
-          onClick={this.getEvenNumOfPlayers}
-          className="ui secondary basic centered button"
-        >
-          Generate Teams
-        </button>
+        {this.state.activePlayers.length >= 4 ? (
+          <button
+            onClick={this.getEvenNumOfPlayers}
+            className="ui secondary basic centered button"
+          >
+            {this.state.showTeams && this.state.activePlayers.length > 4
+              ? "Regenerate Teams"
+              : "Generate Teams"}
+          </button>
+        ) : null}
+
         <br />
         <div className="ui three doubling stackable cards">
           {this.props.users.map(user => {
