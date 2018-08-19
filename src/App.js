@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import MakeComparisonsContainer from "./Containers/MakeComparisonsContainer";
 import NavBar from "./Components/NavBar";
-import UserLandingContainer from "./Containers/UserLandingContainer";
+import NewUserForm from "./Components/NewUserForm";
+import UserContainer from "./Containers/UserContainer";
 
 import "./App.css";
 
@@ -87,12 +88,16 @@ class App extends Component {
           </div>
           <NavBar user={this.state.user} handleSubmit={this.handleSubmit} />
         </header>
-        <UserLandingContainer
-          displayNewUserForm={this.state.displayNewUserForm}
-          user={this.state.user}
-          username={this.state.username}
-          handleCreateUser={this.handleCreateUser}
-        />
+        <div>
+          {this.state.displayNewUserForm ? (
+            <NewUserForm
+              username={this.state.username}
+              handleCreateUser={this.handleCreateUser}
+            />
+          ) : (
+            <UserContainer user={this.state.user} />
+          )}
+        </div>
       </div>
     );
   }
