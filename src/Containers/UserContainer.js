@@ -2,15 +2,13 @@ import React, { Component } from "react";
 import GroupCard from "../Components/GroupCard";
 import MakeComparisonsContainer from "./MakeComparisonsContainer";
 import ShowComparisonsContainer from "./ShowComparisonsContainer";
-import ShowTeams from "./ShowTeams";
 
 export default class UserContainer extends Component {
   state = {
     showNbaPlayers: false,
     currentGroup: null,
     usersInCurrentGroup: [],
-    currentGroupComparisons: [],
-    showExistingComparisons: false
+    currentGroupComparisons: []
   };
 
   handleMakeClick = (group, users) => {
