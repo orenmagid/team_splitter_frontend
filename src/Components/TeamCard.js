@@ -9,7 +9,16 @@ export default function TeamCard({ team }) {
           <div className="meta" />
           <div className="description">
             {team.map(player => {
-              return <p key={player.id}>{player.name}</p>;
+              return (
+                <p key={player.id}>
+                  {" "}
+                  <img
+                    className="ui bordered avatar image"
+                    src="../noun_Basketball_1671463.svg"
+                  />{" "}
+                  {player.name}
+                </p>
+              );
             })}
           </div>
           <div className="extra content" />

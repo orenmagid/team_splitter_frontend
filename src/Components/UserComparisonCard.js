@@ -58,7 +58,10 @@ export default class UserComparisonCard extends Component {
         <div className="ui card blue ">
           <div className="content">
             <div className="header">
-              <i className="basketball ball icon" />
+              <img
+                className="ui bordered avatar image"
+                src="../noun_basketball_player_1646799.png"
+              />
               {user.name}
             </div>
             <div className="meta" />
