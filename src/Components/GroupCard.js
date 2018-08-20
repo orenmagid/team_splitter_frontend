@@ -30,7 +30,9 @@ export default class GroupCard extends Component {
       }
     }).then(response => response.json())
     .then(jsonData => {
-      this.props.handleAddUser(this.props.currentUser)
+      this.setState({
+        users: jsonData.users
+      })
     })
   }
 

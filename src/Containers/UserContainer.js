@@ -130,7 +130,7 @@ export default class UserContainer extends Component {
                 handleMakeClick={this.handleMakeClick}
                 handleShowClick={this.handleShowClick}
                 handleAddUser={this.getUpdatedUserInfo}
-                currentUser={this.props.user}
+                currentUser={user}
               />
             ))}
 
