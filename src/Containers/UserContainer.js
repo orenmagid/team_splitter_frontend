@@ -11,8 +11,7 @@ export default class UserContainer extends Component {
       user: null,
       currentGroup: null,
       usersInCurrentGroup: [],
-      currentGroupComparisons: [],
-      newGroupName: ""
+      currentGroupComparisons: []
     };
   }
 
@@ -51,24 +50,41 @@ export default class UserContainer extends Component {
         });
       });
   };
-  handleGroupNameChange = e => {
-    let newGroupName = e.target.value;
-    this.setState({
-      newGroupName: newGroupName
-    });
+
+  handleJoinGroupSubmit = e => {
+    e.preventDefault()
+    let groupName =  e.target.groupname.value
+    let groupId = e.target.groupid.value
+    e.target.reset()
+    let data = {
+      name: groupName,
+      id: groupId,
+      user_id: this.props.user.id
+    }
+    
+
+    fetch(`https://limitless-bayou-72938.herokuapp.com/api/v1/groups/${groupId}`, {
+      method: "PATCH",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(response => response.json())
+      .then(jsonData => this.getUpdatedUserInfo(this.props.user));
   };
 
+
   handleNewGroupSubmit = e => {
-    e.target.reset();
+    
     e.preventDefault();
 
-    let newGroupName = this.state.newGroupName;
-
+    let newGroupName = e.target.groupname.value;
     let data = {
       name: newGroupName,
       user_id: this.props.user.id
     };
-
+    e.target.reset();
     fetch(`https://limitless-bayou-72938.herokuapp.com/api/v1/groups`, {
       method: "POST",
       body: JSON.stringify(data),
@@ -81,6 +97,7 @@ export default class UserContainer extends Component {
   };
 
   getUpdatedUserInfo = user => {
+    console.log(user.name)
     fetch(
       `https://limitless-bayou-72938.herokuapp.com//api/v1/users/${user.id}`
     )
@@ -112,6 +129,8 @@ export default class UserContainer extends Component {
                 group={group}
                 handleMakeClick={this.handleMakeClick}
                 handleShowClick={this.handleShowClick}
+                handleAddUser={this.getUpdatedUserInfo}
+                currentUser={this.props.user}
               />
             ))}
 
@@ -126,12 +145,44 @@ export default class UserContainer extends Component {
                 <div className="field">
                   <label>Group Name</label>
                   <input
-                    onChange={this.handleGroupNameChange}
                     type="text"
                     name="groupname"
                     placeholder="Group Name"
                   />
                 </div>
+
+                
+
+                <button type="submit" className="ui secondary basic button">
+                  <i className=" plus circle icon" />
+                </button>
+              </form>
+            </div>
+
+            <div className="card">
+              <div className="content">
+                <div className="header"> Join A Group</div>
+                <div className="meta" />
+                <div className="description" />
+              </div>
+
+              <form className="ui form" onSubmit={this.handleJoinGroupSubmit}>
+                <div className="field">
+                  <label>Group Name</label>
+                  <input
+                    type="text"
+                    name="groupname"
+                    placeholder="Group Name"
+                  />
+                   <label>Group ID</label>
+                  <input
+                    type="number"
+                    name="groupid"
+                    placeholder="Group Id"
+                  />
+                </div>
+
+                
 
                 <button type="submit" className="ui secondary basic button">
                   <i className=" plus circle icon" />

@@ -71,11 +71,12 @@ class App extends Component {
       }
     })
       .then(response => response.json())
-      .then(jsonData =>
+      .then(jsonData => {
+        console.log(jsonData)
         this.setState({
           user: jsonData,
           displayNewUserForm: false
-        })
+        })}
       );
   };
 

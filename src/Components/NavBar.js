@@ -8,7 +8,7 @@ export default class NavBar extends Component {
         {user ? null : (
           <form onSubmit={handleSubmit}>
             <input name="username" type="text" />
-            <input type="submit" />
+            <input type="submit" value="Login"/>
           </form>
         )}
       </React.Fragment>
