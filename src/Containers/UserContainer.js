@@ -5,54 +5,6 @@ import MakeComparisonsContainer from "./MakeComparisonsContainer";
 import ShowComparisonsContainer from "./ShowComparisonsContainer";
 
 export default class UserContainer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      showNbaPlayers: false,
-      user: null,
-      currentGroup: null,
-      usersInCurrentGroup: [],
-      currentGroupComparisons: []
-    };
-  }
-
-  handleMakeClick = (group, users) => {
-    console.log(this);
-    this.setState({
-      currentGroup: group,
-      usersInCurrentGroup: users,
-      newGroupName: "",
-      showExistingComparisons: false,
-      currentComparisons: []
-    });
-    console.log(this);
-  };
-
-  handleShowClick = (group, users) => {
-    this.setState({
-      showNbaPlayers: false,
-      currentGroup: group,
-      usersInCurrentGroup: users,
-      showExistingComparisons: true
-    });
-
-    this.fetchGroupForComparisons(group);
-  };
-
-  fetchGroupForComparisons = group => {
-    console.log(group.id);
-    fetch(`https://limitless-bayou-72938.herokuapp.com/api/v1/comparisons`)
-      .then(response => response.json())
-      .then(comparisonsData => {
-        let currentGroupComparisons = comparisonsData.filter(comparison => {
-          return comparison.group_id === group.id;
-        });
-        this.setState({
-          currentGroupComparisons: currentGroupComparisons
-        });
-      });
-  };
-
   handleJoinGroupSubmit = e => {
     e.preventDefault();
     let groupName = e.target.groupname.value;
@@ -75,7 +27,7 @@ export default class UserContainer extends Component {
       }
     )
       .then(response => response.json())
-      .then(jsonData => this.getUpdatedUserInfo(this.props.user));
+      .then(jsonData => this.props.getUpdatedUserInfo(this.props.user));
   };
 
   handleNewGroupSubmit = e => {
@@ -95,20 +47,7 @@ export default class UserContainer extends Component {
       }
     })
       .then(response => response.json())
-      .then(jsonData => this.getUpdatedUserInfo(jsonData.users[0]));
-  };
-
-  getUpdatedUserInfo = user => {
-    console.log(user.name);
-    fetch(
-      `https://limitless-bayou-72938.herokuapp.com//api/v1/users/${user.id}`
-    )
-      .then(response => response.json())
-      .then(user => {
-        this.setState({
-          user: user
-        });
-      });
+      .then(jsonData => this.props.getUpdatedUserInfo(jsonData.users[0]));
   };
 
   removeDuplicates(myArr, prop) {
@@ -118,21 +57,20 @@ export default class UserContainer extends Component {
   }
 
   render() {
-    console.log("this.state.showNbaPlayers", this.state.showNbaPlayers);
-    let user = this.state.user ? this.state.user : this.props.user;
+    let user = this.props.user;
     console.log("user", user);
     if (user !== null) {
       return (
         <div className="ui container">
           <h2>Welcome, {user.name}!</h2>
-          <div className="ui cards">
+          <div className="ui three doubling stackable cards">
             {this.removeDuplicates(user.groups, "id").map(group => (
               <GroupCard
                 key={group.id}
                 group={group}
-                handleMakeClick={this.handleMakeClick}
-                handleShowClick={this.handleShowClick}
-                handleAddUser={this.getUpdatedUserInfo}
+                handleMakeClick={this.props.handleMakeClick}
+                handleShowClick={this.props.handleShowClick}
+                handleUserInfoUpdate={this.props.handleUserInfoUpdate}
                 currentUser={user}
               />
             ))}
@@ -155,7 +93,7 @@ export default class UserContainer extends Component {
                 </div>
 
                 <button type="submit" className="ui secondary basic button">
-                  <i className=" plus circle icon" />
+                  Create Group
                 </button>
               </form>
             </div>
@@ -180,34 +118,11 @@ export default class UserContainer extends Component {
                 </div>
 
                 <button type="submit" className="ui secondary basic button">
-                  <i className=" plus circle icon" />
+                  Join Group
                 </button>
               </form>
             </div>
           </div>
-
-          <Route
-            exact
-            path="/makecomparisons"
-            render={routerProps => (
-              <MakeComparisonsContainer
-                {...routerProps}
-                group={this.state.currentGroup}
-                users={this.state.usersInCurrentGroup}
-                handleSelect={this.handleSelect}
-                currentUser={user}
-              />
-            )}
-          />
-
-          {this.state.showExistingComparisons ? (
-            <ShowComparisonsContainer
-              group={this.state.currentGroup}
-              comparisons={this.state.currentGroupComparisons}
-              users={this.state.usersInCurrentGroup}
-              currentUser={user}
-            />
-          ) : null}
         </div>
       );
     }

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import Player from "../Components/Player";
 
 export default class MakeComparisonsContainer extends Component {
@@ -79,8 +80,6 @@ export default class MakeComparisonsContainer extends Component {
     });
   };
   render() {
-    console.log("this.allNbaPlayers", this.allNbaPlayers);
-
     let players = (
       <React.Fragment>
         <h3>
@@ -103,7 +102,14 @@ export default class MakeComparisonsContainer extends Component {
 
     let selectedUser = this.state.selectedUser;
     return (
-      <div>
+      <div className="ui container">
+        <Link to={`/`}>
+          <button className="ui secondary basic labeled icon button">
+            <i className="left chevron icon" />
+            Back to Dashboard
+          </button>
+        </Link>
+        <h2>{this.props.group.name}</h2>
         <select
           className="ui dropdown"
           onChange={this.handleSelect}
@@ -120,19 +126,19 @@ export default class MakeComparisonsContainer extends Component {
             );
           })}
         </select>
-        <br />
-        <button
-          onClick={this.triggerReRender}
-          className="ui secondary basic button"
-        >
-          Get New Players
-        </button>
+
+        {selectedUser ? (
+          <button
+            onClick={this.triggerReRender}
+            className="ui secondary basic button block"
+          >
+            Get New Players
+          </button>
+        ) : null}
 
         {/* Conditionally Render Some Number of Players So User Can Make Comparisons once there's a selectedUser in State
         onClick of Player of Player Card, Post new comparison */}
-
         {selectedUser ? players : null}
-
         {/* <button
           onClick={this.triggerReRender}
           className="ui secondary basic button"

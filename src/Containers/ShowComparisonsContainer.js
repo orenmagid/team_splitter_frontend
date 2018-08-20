@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import UserComparisonCard from "../Components/UserComparisonCard";
 import TeamCard from "../Components/TeamCard";
 
@@ -93,7 +94,14 @@ export default class ShowComparisonsContainer extends Component {
 
   render() {
     return (
-      <div>
+      <div className="ui container">
+        <Link to={`/`}>
+          <button className="ui secondary basic labeled icon button">
+            <i className="left chevron icon" />
+            Back to Dashboard
+          </button>
+        </Link>
+        <h2>{this.props.group.name}</h2>
         <div className="ui two doubling stackable cards">
           {this.state.showTeams ? (
             <React.Fragment>
@@ -101,10 +109,8 @@ export default class ShowComparisonsContainer extends Component {
               <TeamCard name="Team Two" team={this.state.teamB} />
             </React.Fragment>
           ) : null}
-          <br />
         </div>
 
-        <br />
         {this.state.activePlayers.length >= 4 ? (
           <button
             onClick={this.getEvenNumOfPlayers}
@@ -116,7 +122,6 @@ export default class ShowComparisonsContainer extends Component {
           </button>
         ) : null}
 
-        <br />
         <div className="ui three doubling stackable cards">
           {this.props.users.map(user => {
             return (

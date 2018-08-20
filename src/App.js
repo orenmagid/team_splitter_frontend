@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter, Route, Link, Switch } from "react-router-dom";
 import MakeComparisonsContainer from "./Containers/MakeComparisonsContainer";
+import ShowComparisonsContainer from "./Containers/ShowComparisonsContainer";
 import NavBar from "./Components/NavBar";
 import NewUserForm from "./Components/NewUserForm";
 import UserContainer from "./Containers/UserContainer";
@@ -11,7 +12,10 @@ class App extends Component {
   state = {
     user: null,
     displayNewUserForm: false,
-    username: ""
+    username: "",
+    currentGroup: null,
+    usersInCurrentGroup: [],
+    currentGroupComparisons: []
   };
 
   handleSubmit = e => {
@@ -81,6 +85,52 @@ class App extends Component {
       });
   };
 
+  handleMakeClick = (group, users) => {
+    this.setState({
+      currentGroup: group,
+      usersInCurrentGroup: users,
+      newGroupName: "",
+      showExistingComparisons: false,
+      currentComparisons: []
+    });
+  };
+
+  getUpdatedUserInfo = user => {
+    console.log(user.name);
+    fetch(
+      `https://limitless-bayou-72938.herokuapp.com//api/v1/users/${user.id}`
+    )
+      .then(response => response.json())
+      .then(user => {
+        this.setState({
+          user: user
+        });
+      });
+  };
+
+  handleShowClick = (group, users) => {
+    this.setState({
+      currentGroup: group,
+      usersInCurrentGroup: users
+    });
+
+    this.fetchGroupForComparisons(group);
+  };
+
+  fetchGroupForComparisons = group => {
+    console.log(group.id);
+    fetch(`https://limitless-bayou-72938.herokuapp.com/api/v1/comparisons`)
+      .then(response => response.json())
+      .then(comparisonsData => {
+        let currentGroupComparisons = comparisonsData.filter(comparison => {
+          return comparison.group_id === group.id;
+        });
+        this.setState({
+          currentGroupComparisons: currentGroupComparisons
+        });
+      });
+  };
+
   render() {
     return (
       <div className="App">
@@ -95,9 +145,16 @@ class App extends Component {
             />
           ) : (
             <Route
+              exact
               path="/"
               render={routerProps => (
-                <UserContainer {...routerProps} user={this.state.user} />
+                <UserContainer
+                  {...routerProps}
+                  handleUserInfoUpdate={this.getUpdatedUserInfo}
+                  user={this.state.user}
+                  handleMakeClick={this.handleMakeClick}
+                  handleShowClick={this.handleShowClick}
+                />
               )}
             />
           )}
@@ -109,8 +166,23 @@ class App extends Component {
                 {...routerProps}
                 group={this.state.currentGroup}
                 users={this.state.usersInCurrentGroup}
-                handleSelect={this.handleSelect}
-                currentUser={user}
+                currentUser={this.state.user}
+                handleUserInfoUpdate={this.getUpdatedUserInfo}
+              />
+            )}
+          />
+
+          <Route
+            exact
+            path="/showcomparisons"
+            render={routerProps => (
+              <ShowComparisonsContainer
+                {...routerProps}
+                group={this.state.currentGroup}
+                users={this.state.usersInCurrentGroup}
+                comparisons={this.state.currentGroupComparisons}
+                currentUser={this.state.user}
+                handleShowClick={this.handleShowClick}
               />
             )}
           />

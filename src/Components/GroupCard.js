@@ -35,7 +35,10 @@ export default class GroupCard extends Component {
     )
       .then(response => response.json())
       .then(jsonData => {
-        this.props.handleAddUser(this.props.currentUser);
+        let uniqueUsers = this.removeDuplicates(jsonData.users, "id");
+        this.setState({
+          users: uniqueUsers
+        });
       });
   };
 
@@ -79,6 +82,26 @@ export default class GroupCard extends Component {
             </div>
           </div>
           <div className="extra content" />
+          <Link to={`/makecomparisons`}>
+            <button
+              onClick={() =>
+                this.props.handleMakeClick(group, this.state.users)
+              }
+              className="ui secondary basic button"
+            >
+              Make Comparisons
+            </button>
+          </Link>
+          <Link to={`/showcomparisons`}>
+            <button
+              onClick={() => handleShowClick(group, this.state.users)}
+              className="ui secondary basic button"
+            >
+              Show Comparisons
+            </button>
+          </Link>
+          <div class="ui divider" />
+
           <form className="ui form" onSubmit={this.handleAddToGroupSubmit}>
             <div className="field">
               <label>Add User By Username</label>
@@ -86,23 +109,9 @@ export default class GroupCard extends Component {
             </div>
 
             <button type="submit" className="ui secondary basic button">
-              <i className=" plus circle icon" />
+              Add User
             </button>
           </form>
-          <Link to={`/makecomparisons`}>
-            <button
-              onClick={() => handleMakeClick(group, this.state.users)}
-              className="ui secondary basic button"
-            >
-              Make Comparisons
-            </button>
-          </Link>
-          <button
-            onClick={() => handleShowClick(group, this.state.users)}
-            className="ui secondary basic button"
-          >
-            Show Comparisons
-          </button>
         </div>
       </React.Fragment>
     );

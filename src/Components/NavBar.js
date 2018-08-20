@@ -11,19 +11,19 @@ const NavBar = ({ handleSubmit, user }) => {
   };
   return (
     <React.Fragment>
-      {user ? (
-        <div className="ui one item menu">
-          <NavLink
-            className="item"
-            exact
-            to="/user"
-            style={style}
-            activeStyle={activeStyle}
-          >
-            User Profile
-          </NavLink>
-        </div>
-      ) : null}
+      {/* {user ? (
+        // <div className="ui three item menu">
+        //   <NavLink
+        //     className="item"
+        //     exact
+        //     to="/"
+        //     style={style}
+        //     activeStyle={activeStyle}
+        //   >
+        //     User Profile
+        //   </NavLink>
+        // </div>
+      ) : null} */}
 
       {user ? null : (
         <form onSubmit={handleSubmit}>
