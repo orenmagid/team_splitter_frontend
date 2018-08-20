@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { BrowserRouter, Route, Link, Switch } from "react-router-dom";
 
 export default class GroupCard extends Component {
   state = {
@@ -12,27 +13,31 @@ export default class GroupCard extends Component {
   }
 
   handleAddToGroupSubmit = e => {
-    e.preventDefault()
+    e.preventDefault();
 
-    let username = e.target.username.value
-    e.target.reset()
+    let username = e.target.username.value;
+    e.target.reset();
     let data = {
       username: username
-    }
+    };
 
-    fetch(`https://limitless-bayou-72938.herokuapp.com/api/v1/groups/${
-      this.props.group.id
-    }`, {
-      method: "PATCH",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json"
+    fetch(
+      `https://limitless-bayou-72938.herokuapp.com/api/v1/groups/${
+        this.props.group.id
+      }`,
+      {
+        method: "PATCH",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json"
+        }
       }
-    }).then(response => response.json())
-    .then(jsonData => {
-      this.props.handleAddUser(this.props.currentUser)
-    })
-  }
+    )
+      .then(response => response.json())
+      .then(jsonData => {
+        this.props.handleAddUser(this.props.currentUser);
+      });
+  };
 
   componentDidMount() {
     fetch(
@@ -57,7 +62,7 @@ export default class GroupCard extends Component {
         <div className="card">
           <div className="content">
             <div className="header"> Group: {group.name}</div>
-            <div className="meta" >Group id: {group.id}</div>
+            <div className="meta">Group id: {group.id}</div>
             <div className="description" />
             <div className="ui mini horizontal divided list">
               {this.state.users.map(user => {
@@ -75,27 +80,23 @@ export default class GroupCard extends Component {
           </div>
           <div className="extra content" />
           <form className="ui form" onSubmit={this.handleAddToGroupSubmit}>
-                <div className="field">
-                   <label>Add User By Username</label>
-                  <input
-                    type="text"
-                    name="username"
-                    placeholder="username"
-                  />
-                </div>
+            <div className="field">
+              <label>Add User By Username</label>
+              <input type="text" name="username" placeholder="username" />
+            </div>
 
-                
-
-                <button type="submit" className="ui secondary basic button">
-                  <i className=" plus circle icon" />
-                </button>
-              </form>
-          <button
-            onClick={() => handleMakeClick(group, this.state.users)}
-            className="ui secondary basic button"
-          >
-            Make Comparisons
-          </button>
+            <button type="submit" className="ui secondary basic button">
+              <i className=" plus circle icon" />
+            </button>
+          </form>
+          <Link to={`/makecomparisons`}>
+            <button
+              onClick={() => handleMakeClick(group, this.state.users)}
+              className="ui secondary basic button"
+            >
+              Make Comparisons
+            </button>
+          </Link>
           <button
             onClick={() => handleShowClick(group, this.state.users)}
             className="ui secondary basic button"

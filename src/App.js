@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { BrowserRouter, Route, Link, Switch } from "react-router-dom";
 import MakeComparisonsContainer from "./Containers/MakeComparisonsContainer";
 import NavBar from "./Components/NavBar";
 import NewUserForm from "./Components/NewUserForm";
@@ -72,21 +73,18 @@ class App extends Component {
     })
       .then(response => response.json())
       .then(jsonData => {
-        console.log(jsonData)
+        console.log(jsonData);
         this.setState({
           user: jsonData,
           displayNewUserForm: false
-        })}
-      );
+        });
+      });
   };
 
   render() {
     return (
       <div className="App">
         <header className="App-header">
-          <div className="ui inverted segment">
-            <div className="ui inverted secondary pointing menu" />
-          </div>
           <NavBar user={this.state.user} handleSubmit={this.handleSubmit} />
         </header>
         <div>
@@ -96,8 +94,26 @@ class App extends Component {
               handleCreateUser={this.handleCreateUser}
             />
           ) : (
-            <UserContainer user={this.state.user} />
+            <Route
+              path="/"
+              render={routerProps => (
+                <UserContainer {...routerProps} user={this.state.user} />
+              )}
+            />
           )}
+          <Route
+            exact
+            path="/makecomparisons"
+            render={routerProps => (
+              <MakeComparisonsContainer
+                {...routerProps}
+                group={this.state.currentGroup}
+                users={this.state.usersInCurrentGroup}
+                handleSelect={this.handleSelect}
+                currentUser={user}
+              />
+            )}
+          />
         </div>
       </div>
     );

@@ -16,10 +16,6 @@ export default class MakeComparisonsContainer extends Component {
     fetch("https://limitless-bayou-72938.herokuapp.com/api/v1/nba_players")
       .then(res => res.json())
       .then(jsonData => {
-        // console.log(jsonData);
-        // this.setState({
-        //   allNbaPlayers: jsonData
-        // });
         this.allNbaPlayers = jsonData;
         this.setState({
           selectedUser: this.state.selectedUser
@@ -31,14 +27,7 @@ export default class MakeComparisonsContainer extends Component {
     fetch("https://limitless-bayou-72938.herokuapp.com/api/v1/nba_players")
       .then(res => res.json())
       .then(jsonData => {
-        // console.log(jsonData);
-        // this.setState({
-        //   allNbaPlayers: jsonData
-        // });
         this.allNbaPlayers = jsonData;
-        // this.setState({
-        //   selectedUser: this.state.selectedUser
-        // });
       });
   }
 
