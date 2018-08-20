@@ -1,5 +1,7 @@
 import React, { Component } from "react";
+import { BrowserRouter, Route, Link, Switch } from "react-router-dom";
 import MakeComparisonsContainer from "./Containers/MakeComparisonsContainer";
+import ShowComparisonsContainer from "./Containers/ShowComparisonsContainer";
 import NavBar from "./Components/NavBar";
 import NewUserForm from "./Components/NewUserForm";
 import UserContainer from "./Containers/UserContainer";
@@ -10,7 +12,10 @@ class App extends Component {
   state = {
     user: null,
     displayNewUserForm: false,
-    username: ""
+    username: "",
+    currentGroup: null,
+    usersInCurrentGroup: [],
+    currentGroupComparisons: []
   };
 
   handleSubmit = e => {
@@ -72,21 +77,64 @@ class App extends Component {
     })
       .then(response => response.json())
       .then(jsonData => {
-        console.log(jsonData)
+        console.log(jsonData);
         this.setState({
           user: jsonData,
           displayNewUserForm: false
-        })}
-      );
+        });
+      });
+  };
+
+  handleMakeClick = (group, users) => {
+    this.setState({
+      currentGroup: group,
+      usersInCurrentGroup: users,
+      newGroupName: "",
+      showExistingComparisons: false,
+      currentComparisons: []
+    });
+  };
+
+  getUpdatedUserInfo = user => {
+    console.log(user.name);
+    fetch(
+      `https://limitless-bayou-72938.herokuapp.com//api/v1/users/${user.id}`
+    )
+      .then(response => response.json())
+      .then(user => {
+        this.setState({
+          user: user
+        });
+      });
+  };
+
+  handleShowClick = (group, users) => {
+    this.setState({
+      currentGroup: group,
+      usersInCurrentGroup: users
+    });
+
+    this.fetchGroupForComparisons(group);
+  };
+
+  fetchGroupForComparisons = group => {
+    console.log(group.id);
+    fetch(`https://limitless-bayou-72938.herokuapp.com/api/v1/comparisons`)
+      .then(response => response.json())
+      .then(comparisonsData => {
+        let currentGroupComparisons = comparisonsData.filter(comparison => {
+          return comparison.group_id === group.id;
+        });
+        this.setState({
+          currentGroupComparisons: currentGroupComparisons
+        });
+      });
   };
 
   render() {
     return (
       <div className="App">
         <header className="App-header">
-          <div className="ui inverted segment">
-            <div className="ui inverted secondary pointing menu" />
-          </div>
           <NavBar user={this.state.user} handleSubmit={this.handleSubmit} />
         </header>
         <div>
@@ -96,8 +144,48 @@ class App extends Component {
               handleCreateUser={this.handleCreateUser}
             />
           ) : (
-            <UserContainer user={this.state.user} />
+            <Route
+              exact
+              path="/"
+              render={routerProps => (
+                <UserContainer
+                  {...routerProps}
+                  handleUserInfoUpdate={this.getUpdatedUserInfo}
+                  user={this.state.user}
+                  handleMakeClick={this.handleMakeClick}
+                  handleShowClick={this.handleShowClick}
+                />
+              )}
+            />
           )}
+          <Route
+            exact
+            path="/makecomparisons"
+            render={routerProps => (
+              <MakeComparisonsContainer
+                {...routerProps}
+                group={this.state.currentGroup}
+                users={this.state.usersInCurrentGroup}
+                currentUser={this.state.user}
+                handleUserInfoUpdate={this.getUpdatedUserInfo}
+              />
+            )}
+          />
+
+          <Route
+            exact
+            path="/showcomparisons"
+            render={routerProps => (
+              <ShowComparisonsContainer
+                {...routerProps}
+                group={this.state.currentGroup}
+                users={this.state.usersInCurrentGroup}
+                comparisons={this.state.currentGroupComparisons}
+                currentUser={this.state.user}
+                handleShowClick={this.handleShowClick}
+              />
+            )}
+          />
         </div>
       </div>
     );

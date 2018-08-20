@@ -1,19 +1,31 @@
-body {
+/* body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
-}
+} */
 
 img {
   margin-bottom: 25px;
   box-shadow: 1px 1px 1px #f7fbff;
   border: 6px;
 }
+.plus {
+  margin: auto;
+}
 
-button {
-  margin: 10px;
+.ui.button {
+  margin: 5px;
 }
 
 .dropdown {
-  margin: 50px;
+  margin: 20px;
+}
+
+.container {
+  margin-top: 15px;
+}
+
+.ui.button.block {
+  display: block;
+  margin: auto;
 }
