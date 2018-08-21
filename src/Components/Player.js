@@ -106,8 +106,8 @@ export default class Player extends Component {
                 Height: {this.props.player.height_feet}'{" "}
                 {this.props.player.height_inches}"
               </p>
-              <p>Offensive Rating: {this.props.player.offrtg}</p>
-              <p>Defensive Rating: {this.props.player.dfrtg}</p>
+              {/* <p>Offensive Rating: {this.props.player.offrtg}</p>
+              <p>Defensive Rating: {this.props.player.dfrtg}</p> */}
               <p>PIE: {(this.props.player.pie * 100).toFixed(2)}</p>
               <p>
                 Usage Percentage: {(this.props.player.usg * 100).toFixed(2)}%

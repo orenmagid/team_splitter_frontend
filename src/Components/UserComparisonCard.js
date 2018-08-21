@@ -72,12 +72,12 @@ export default class UserComparisonCard extends Component {
                 <React.Fragment>
                   <p>Average PIE of Comparisons: {avgPie.toFixed(2)}</p>
                   <p>Average Usage Percentage: {avgUSG.toFixed(2)}%</p>
-                  <p>
+                  {/* <p>
                     Average Off. Efficiency of Comparisons: {avgOff.toFixed(2)}
                   </p>
                   <p>
                     Average Def. Efficiency of Comparisons: {avgDef.toFixed(2)}
-                  </p>
+                  </p> */}
                   <p>Number of Comparisons: {userComparisons.length}</p>
                 </React.Fragment>
               ) : null}

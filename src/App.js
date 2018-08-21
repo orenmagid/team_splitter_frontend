@@ -96,7 +96,6 @@ class App extends Component {
   };
 
   getUpdatedUserInfo = user => {
-    console.log(user.name);
     fetch(
       `https://limitless-bayou-72938.herokuapp.com//api/v1/users/${user.id}`
     )
@@ -131,23 +130,20 @@ class App extends Component {
       });
   };
 
-  // handleLeaveGroup = (group, user) => {
-  //   data = {
-  //     groupId: group.id
-  //   };
-  //   fetch(
-  //     `https://limitless-bayou-72938.herokuapp.com//api/v1/users/${user.id}`,
-  //     {
-  //       method: "PATCH",
-  //       body: JSON.stringify(data),
-  //       headers: {
-  //         "Content-Type": "application/json"
-  //       }
-  //     }
-  //   )
-  //     .then(res => res.json())
-  //     .then(user => console.log(user));
-  // };
+  handleLeaveGroup = (group, user) => {
+    let userGroup = user.user_groups.find(
+      user_group => user_group.group_id === group.id
+    );
+
+    fetch(
+      `https://limitless-bayou-72938.herokuapp.com/api/v1/user_groups/${
+        userGroup.id
+      }`,
+      {
+        method: "DELETE"
+      }
+    ).then(() => this.getUpdatedUserInfo(user));
+  };
 
   render() {
     return (
