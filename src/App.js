@@ -237,11 +237,15 @@ class App extends Component {
           />
         </header>
         <div>
-          <h1 className="">Team Picker</h1>
-          <img
-            className="ui centered middle aligned large image"
-            src="../noun_Basketball_1671463.svg"
-          />
+          {this.state.user || this.state.displayNewUserForm ? null : (
+            <React.Fragment>
+              <h1 className="">Team Picker</h1>
+              <img
+                className="ui centered middle aligned large image"
+                src="../noun_Basketball_1671463.svg"
+              />
+            </React.Fragment>
+          )}
 
           <Route
             exact
