@@ -72,7 +72,7 @@ export default class GroupCard extends Component {
           <div>
             <button
               onClick={() => handleLeaveGroup(group, currentUser)}
-              className="ui left floated circular secondary basic button"
+              className="ui circular mini basic button"
             >
               Leave Group
             </button>

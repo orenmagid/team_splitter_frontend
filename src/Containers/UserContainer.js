@@ -90,7 +90,7 @@ export default class UserContainer extends Component {
 
             <div className="card">
               <div class="image rounded">
-                <img src="../noun_Basketball_1671463-white-background.svg" />
+                <img src="../noun_Basketball_1671463-round-white-background.svg" />
               </div>
               <div className="content">
                 <div className="header"> Join a Group</div>
