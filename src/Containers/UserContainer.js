@@ -62,19 +62,10 @@ export default class UserContainer extends Component {
         <div className="ui container">
           <h2>Welcome, {user.name}!</h2>
           <div className="ui three doubling stackable cards">
-            {this.removeDuplicates(user.groups, "id").map(group => (
-              <GroupCard
-                key={group.id}
-                group={group}
-                handleMakeClick={this.props.handleMakeClick}
-                handleShowClick={this.props.handleShowClick}
-                handleUserInfoUpdate={this.props.handleUserInfoUpdate}
-                handleLeaveGroup={this.props.handleLeaveGroup}
-                currentUser={user}
-              />
-            ))}
-
             <div className="card">
+              <div class="image">
+                <img src="../noun_basketball_player_1646799-transparent-background.svg" />
+              </div>
               <div className="content">
                 <div className="header"> Create New Group</div>
                 <div className="meta" />
@@ -98,6 +89,9 @@ export default class UserContainer extends Component {
             </div>
 
             <div className="card">
+              <div class="image rounded">
+                <img src="../noun_Basketball_1671463-white-background.svg" />
+              </div>
               <div className="content">
                 <div className="header"> Join a Group</div>
                 <div className="meta" />
@@ -121,6 +115,17 @@ export default class UserContainer extends Component {
                 </button>
               </form>
             </div>
+            {this.removeDuplicates(user.groups, "id").map(group => (
+              <GroupCard
+                key={group.id}
+                group={group}
+                handleMakeClick={this.props.handleMakeClick}
+                handleShowClick={this.props.handleShowClick}
+                handleUserInfoUpdate={this.props.handleUserInfoUpdate}
+                handleLeaveGroup={this.props.handleLeaveGroup}
+                currentUser={user}
+              />
+            ))}
           </div>
         </div>
       );
