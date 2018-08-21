@@ -83,7 +83,7 @@ export default class MakeComparisonsContainer extends Component {
     let players = (
       <React.Fragment>
         <h3>
-          Out of your group, which player is {this.state.selectedUser.name} most
+          In group {this.props.group.name}, which player is {this.state.selectedUser.name} most
           similar to.
         </h3>
         <div className="ui three doubling stackable cards">
