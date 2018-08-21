@@ -38,6 +38,12 @@ img {
   margin-top: 25px;
 }
 
+h1:first-child {
+  margin-top: 25px;
+  font-family: "Permanent Marker", cursive;
+  font-size: 70px;
+}
+
 .tiny {
   margin-top: 10px;
   margin-left: 25px;

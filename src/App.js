@@ -237,6 +237,12 @@ class App extends Component {
           />
         </header>
         <div>
+          <h1 className="">Team Picker</h1>
+          <img
+            className="ui centered middle aligned large image"
+            src="../noun_Basketball_1671463.svg"
+          />
+
           <Route
             exact
             path="/newuser"
