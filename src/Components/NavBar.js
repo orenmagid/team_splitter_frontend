@@ -1,7 +1,7 @@
 import React from "react";
-// import { Link, NavLink } from "reacxt-router-dom";
+import { Link } from "react-router-dom";
 
-const NavBar = ({ handleSubmit, user }) => {
+const NavBar = ({ handleSubmit, user, handleLogout }) => {
   // const activeStyle = {
   //   background: "black"
   // };
@@ -25,10 +25,23 @@ const NavBar = ({ handleSubmit, user }) => {
         // </div>
       ) : null} */}
 
-      {user ? null : (
+      {user ? (
+        <Link to={`/`}>
+          <button
+            onClick={handleLogout}
+            type="submit"
+            className="ui inverted secondary basic button"
+          >
+            Logout
+          </button>
+        </Link>
+      ) : (
         <form onSubmit={handleSubmit}>
           <input name="username" type="text" />
-          <input type="submit" value="Login" />
+
+          <button type="submit" className="ui inverted secondary basic button">
+            Login
+          </button>
         </form>
       )}
     </React.Fragment>

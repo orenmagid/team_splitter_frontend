@@ -3,51 +3,6 @@ import React, { Component } from "react";
 import GroupCard from "../Components/GroupCard";
 
 export default class UserContainer extends Component {
-  handleJoinGroupSubmit = e => {
-    e.preventDefault();
-    let groupName = e.target.groupname.value;
-    let groupId = e.target.groupid.value;
-    e.target.reset();
-    let data = {
-      name: groupName,
-      id: groupId,
-      user_id: this.props.user.id
-    };
-
-    fetch(
-      `https://limitless-bayou-72938.herokuapp.com/api/v1/groups/${groupId}`,
-      {
-        method: "PATCH",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json"
-        }
-      }
-    )
-      .then(response => response.json())
-      .then(jsonData => this.props.handleUserInfoUpdate(this.props.user));
-  };
-
-  handleNewGroupSubmit = e => {
-    e.preventDefault();
-
-    let newGroupName = e.target.groupname.value;
-    let data = {
-      name: newGroupName,
-      user_id: this.props.user.id
-    };
-    e.target.reset();
-    fetch(`https://limitless-bayou-72938.herokuapp.com/api/v1/groups`, {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-      .then(response => response.json())
-      .then(jsonData => this.props.handleUserInfoUpdate(jsonData.users[0]));
-  };
-
   removeDuplicates(myArr, prop) {
     return myArr.filter((obj, pos, arr) => {
       return arr.map(mapObj => mapObj[prop]).indexOf(obj[prop]) === pos;
@@ -72,7 +27,10 @@ export default class UserContainer extends Component {
                 <div className="description" />
               </div>
 
-              <form className="ui form" onSubmit={this.handleNewGroupSubmit}>
+              <form
+                className="ui form"
+                onSubmit={this.props.handleNewGroupSubmit}
+              >
                 <div className="field">
                   <label>Group Name</label>
                   <input
@@ -98,7 +56,10 @@ export default class UserContainer extends Component {
                 <div className="description" />
               </div>
 
-              <form className="ui form" onSubmit={this.handleJoinGroupSubmit}>
+              <form
+                className="ui form"
+                onSubmit={this.props.handleJoinGroupSubmit}
+              >
                 <div className="field">
                   <label>Group Name</label>
                   <input

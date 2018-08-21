@@ -17,7 +17,7 @@ class App extends Component {
     usersInCurrentGroup: [],
     currentGroupComparisons: []
   };
-//-----------------User Login Functionality-----------------//
+  //-----------------User Login and Logout Functionality-----------------//
   handleSubmit = e => {
     e.preventDefault();
     console.log("Inside handleSubmit");
@@ -50,6 +50,13 @@ class App extends Component {
         username: username
       });
     }
+  };
+
+  handleLogout = () => {
+    this.setState({
+      user: null,
+      username: ""
+    });
   };
   //-------------------Create New User Functionality------------------//
   createNewUser = username => {
@@ -85,7 +92,7 @@ class App extends Component {
         });
       });
   };
-//-----------------Handles Make And Show Comparisons Functionality--------------//
+  //-----------------Handles Make And Show Comparisons Functionality--------------//
   handleMakeClick = (group, users) => {
     this.setState({
       currentGroup: group,
@@ -130,7 +137,52 @@ class App extends Component {
         });
       });
   };
-//-----------------Handles Group Functionality-----------------//
+  //-----------------Handles Group Functionality-----------------//
+  handleJoinGroupSubmit = e => {
+    e.preventDefault();
+    let groupName = e.target.groupname.value;
+    let groupId = e.target.groupid.value;
+    e.target.reset();
+    let data = {
+      name: groupName,
+      id: groupId,
+      user_id: this.state.user.id
+    };
+
+    fetch(
+      `https://limitless-bayou-72938.herokuapp.com/api/v1/groups/${groupId}`,
+      {
+        method: "PATCH",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      }
+    )
+      .then(response => response.json())
+      .then(jsonData => this.getUpdatedUserInfo(this.state.user));
+  };
+
+  handleNewGroupSubmit = e => {
+    e.preventDefault();
+
+    let newGroupName = e.target.groupname.value;
+    let data = {
+      name: newGroupName,
+      user_id: this.state.user.id
+    };
+    e.target.reset();
+    fetch(`https://limitless-bayou-72938.herokuapp.com/api/v1/groups`, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(response => response.json())
+      .then(jsonData => this.getUpdatedUserInfo(jsonData.users[0]));
+  };
+
   handleLeaveGroup = (group, user) => {
     let userGroup = user.user_groups.find(
       user_group => user_group.group_id === group.id
@@ -158,7 +210,11 @@ class App extends Component {
             className="ui tiny right floated image"
             src="../noun_Basketball_201883.svg"
           />{" "} */}
-          <NavBar user={this.state.user} handleSubmit={this.handleSubmit} />
+          <NavBar
+            user={this.state.user}
+            handleSubmit={this.handleSubmit}
+            handleLogout={this.handleLogout}
+          />
         </header>
         <div>
           {this.state.displayNewUserForm ? (
@@ -173,6 +229,8 @@ class App extends Component {
               render={routerProps => (
                 <UserContainer
                   {...routerProps}
+                  handleJoinGroupSubmit={this.handleJoinGroupSubmit}
+                  handleNewGroupSubmit={this.handleNewGroupSubmit}
                   handleLeaveGroup={this.handleLeaveGroup}
                   handleUserInfoUpdate={this.getUpdatedUserInfo}
                   user={this.state.user}
