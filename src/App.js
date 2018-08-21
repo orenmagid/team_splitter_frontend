@@ -17,7 +17,7 @@ class App extends Component {
     usersInCurrentGroup: [],
     currentGroupComparisons: []
   };
-
+//-----------------User Login Functionality-----------------//
   handleSubmit = e => {
     e.preventDefault();
     console.log("Inside handleSubmit");
@@ -51,6 +51,7 @@ class App extends Component {
       });
     }
   };
+  //-------------------Create New User Functionality------------------//
   createNewUser = username => {
     console.log("Inside createNewUser");
     this.setState({
@@ -84,7 +85,7 @@ class App extends Component {
         });
       });
   };
-
+//-----------------Handles Make And Show Comparisons Functionality--------------//
   handleMakeClick = (group, users) => {
     this.setState({
       currentGroup: group,
@@ -129,7 +130,7 @@ class App extends Component {
         });
       });
   };
-
+//-----------------Handles Group Functionality-----------------//
   handleLeaveGroup = (group, user) => {
     let userGroup = user.user_groups.find(
       user_group => user_group.group_id === group.id
