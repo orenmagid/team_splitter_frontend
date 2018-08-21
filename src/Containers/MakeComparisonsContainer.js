@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Player from "../Components/Player";
+import { Redirect } from "react-router-dom";
 
 export default class MakeComparisonsContainer extends Component {
   constructor(props) {
@@ -80,11 +81,15 @@ export default class MakeComparisonsContainer extends Component {
     });
   };
   render() {
+    if (this.props.users.length === 0) {
+      console.log("Here we are!");
+      return <Redirect to="/" />;
+    }
     let players = (
       <React.Fragment>
         <h3>
-          In group {this.props.group.name}, which player is {this.state.selectedUser.name} most
-          similar to.
+          In group {this.props.group.name}, which player is{" "}
+          {this.state.selectedUser.name} most similar to.
         </h3>
         <div className="ui three doubling stackable cards">
           {this.allNbaPlayers.map(player => {
@@ -101,6 +106,7 @@ export default class MakeComparisonsContainer extends Component {
     );
 
     let selectedUser = this.state.selectedUser;
+
     return (
       <div className="ui container">
         <Link to={`/`}>

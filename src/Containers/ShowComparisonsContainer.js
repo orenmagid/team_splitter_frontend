@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import UserComparisonCard from "../Components/UserComparisonCard";
 import TeamCard from "../Components/TeamCard";
 
@@ -93,6 +94,10 @@ export default class ShowComparisonsContainer extends Component {
   };
 
   render() {
+    if (this.props.users.length === 0) {
+      console.log("Here we are!");
+      return <Redirect to="/" />;
+    }
     return (
       <div className="ui container">
         <Link to={`/`}>
