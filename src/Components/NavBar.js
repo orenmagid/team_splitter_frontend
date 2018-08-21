@@ -1,7 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const NavBar = ({ handleSubmit, user, handleLogout }) => {
+const NavBar = ({
+  handleSubmit,
+  user,
+  handleLogout,
+  createNewUser,
+  displayNewUserForm
+}) => {
   // const activeStyle = {
   //   background: "black"
   // };
@@ -24,7 +30,17 @@ const NavBar = ({ handleSubmit, user, handleLogout }) => {
         //   </NavLink>
         // </div>
       ) : null} */}
-
+      {!user && !displayNewUserForm ? (
+        <Link to={`/newuser`}>
+          <button
+            onClick={createNewUser}
+            type="submit"
+            className="ui inverted secondary basic left floated button"
+          >
+            Create Account
+          </button>
+        </Link>
+      ) : null}
       {user ? (
         <Link to={`/`}>
           <button
@@ -36,7 +52,7 @@ const NavBar = ({ handleSubmit, user, handleLogout }) => {
           </button>
         </Link>
       ) : (
-        <form onSubmit={handleSubmit}>
+        <form className="" onSubmit={handleSubmit}>
           <input name="username" type="text" />
 
           <button type="submit" className="ui inverted secondary basic button">

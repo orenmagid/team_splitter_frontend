@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Route } from "react-router-dom";
+
 import MakeComparisonsContainer from "./Containers/MakeComparisonsContainer";
 import ShowComparisonsContainer from "./Containers/ShowComparisonsContainer";
 import NavBar from "./Components/NavBar";
@@ -11,8 +12,8 @@ import "./App.css";
 class App extends Component {
   state = {
     user: null,
-    displayNewUserForm: false,
     username: "",
+    displayNewUserForm: false,
     currentGroup: null,
     usersInCurrentGroup: [],
     currentGroupComparisons: []
@@ -23,6 +24,9 @@ class App extends Component {
     console.log("Inside handleSubmit");
     const username = e.currentTarget.username.value;
     this.getUser(username);
+    this.setState({
+      displayNewUserForm: false
+    });
   };
 
   getUser = username => {
@@ -43,7 +47,7 @@ class App extends Component {
       this.setState({
         username: username
       });
-      this.createNewUser(username);
+      alert("Username not found. Please try again, or create a new account.");
     } else {
       this.setState({
         user: user,
@@ -85,13 +89,26 @@ class App extends Component {
     })
       .then(response => response.json())
       .then(jsonData => {
-        console.log(jsonData);
-        this.setState({
-          user: jsonData,
-          displayNewUserForm: false
-        });
+        console.log(jsonData.errors);
+        if (jsonData.errors.length !== 0) {
+          this.displayErrors(jsonData.errors);
+        } else {
+          this.setState({
+            user: jsonData,
+            displayNewUserForm: false
+          });
+          window.history.back();
+        }
       });
   };
+
+  displayErrors = errors => {
+    let errorlist = errors.map(error => {
+      return `-${error} \n`;
+    });
+    alert(errorlist.join(" "));
+  };
+
   //-----------------Handles Make And Show Comparisons Functionality--------------//
   handleMakeClick = (group, users) => {
     this.setState({
@@ -211,35 +228,44 @@ class App extends Component {
             src="../noun_Basketball_201883.svg"
           />{" "} */}
           <NavBar
+            username={this.state.username}
+            displayNewUserForm={this.state.displayNewUserForm}
+            createNewUser={this.createNewUser}
             user={this.state.user}
             handleSubmit={this.handleSubmit}
             handleLogout={this.handleLogout}
           />
         </header>
         <div>
-          {this.state.displayNewUserForm ? (
-            <NewUserForm
-              username={this.state.username}
-              handleCreateUser={this.handleCreateUser}
-            />
-          ) : (
-            <Route
-              exact
-              path="/"
-              render={routerProps => (
-                <UserContainer
-                  {...routerProps}
-                  handleJoinGroupSubmit={this.handleJoinGroupSubmit}
-                  handleNewGroupSubmit={this.handleNewGroupSubmit}
-                  handleLeaveGroup={this.handleLeaveGroup}
-                  handleUserInfoUpdate={this.getUpdatedUserInfo}
-                  user={this.state.user}
-                  handleMakeClick={this.handleMakeClick}
-                  handleShowClick={this.handleShowClick}
-                />
-              )}
-            />
-          )}
+          <Route
+            exact
+            path="/newuser"
+            render={routerProps => (
+              <NewUserForm
+                handleCreateUser={this.handleCreateUser}
+                username={this.state.username}
+                displayNewUserForm={this.state.displayNewUserForm}
+                user={this.state.user}
+              />
+            )}
+          />
+          <Route
+            exact
+            path="/"
+            render={routerProps => (
+              <UserContainer
+                {...routerProps}
+                handleJoinGroupSubmit={this.handleJoinGroupSubmit}
+                handleNewGroupSubmit={this.handleNewGroupSubmit}
+                handleLeaveGroup={this.handleLeaveGroup}
+                handleUserInfoUpdate={this.getUpdatedUserInfo}
+                user={this.state.user}
+                handleMakeClick={this.handleMakeClick}
+                handleShowClick={this.handleShowClick}
+              />
+            )}
+          />
+
           <Route
             exact
             path="/makecomparisons"
@@ -253,7 +279,6 @@ class App extends Component {
               />
             )}
           />
-
           <Route
             exact
             path="/showcomparisons"
