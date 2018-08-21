@@ -16,7 +16,7 @@ const NavBar = ({
   //   color: "white"
   // };
   return (
-    <React.Fragment>
+    <div className="ui container">
       {/* {user ? (
         // <div className="ui three item menu">
         //   <NavLink
@@ -46,7 +46,7 @@ const NavBar = ({
           <button
             onClick={handleLogout}
             type="submit"
-            className="ui inverted secondary basic button"
+            className="ui inverted secondary basic right floated button"
           >
             Logout
           </button>
@@ -60,7 +60,7 @@ const NavBar = ({
           </button>
         </form>
       )}
-    </React.Fragment>
+    </div>
   );
 };
 
