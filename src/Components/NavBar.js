@@ -1,14 +1,14 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+// import { Link, NavLink } from "reacxt-router-dom";
 
 const NavBar = ({ handleSubmit, user }) => {
-  const activeStyle = {
-    background: "black"
-  };
-
-  const style = {
-    color: "white"
-  };
+  // const activeStyle = {
+  //   background: "black"
+  // };
+  //
+  // const style = {
+  //   color: "white"
+  // };
   return (
     <React.Fragment>
       {/* {user ? (

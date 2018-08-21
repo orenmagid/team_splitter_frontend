@@ -1,8 +1,6 @@
 import React, { Component } from "react";
-import { BrowserRouter, Route, Link, Switch } from "react-router-dom";
+// import { Route, Link } from "react-router-dom";
 import GroupCard from "../Components/GroupCard";
-import MakeComparisonsContainer from "./MakeComparisonsContainer";
-import ShowComparisonsContainer from "./ShowComparisonsContainer";
 
 export default class UserContainer extends Component {
   handleJoinGroupSubmit = e => {
@@ -71,6 +69,7 @@ export default class UserContainer extends Component {
                 handleMakeClick={this.props.handleMakeClick}
                 handleShowClick={this.props.handleShowClick}
                 handleUserInfoUpdate={this.props.handleUserInfoUpdate}
+                handleLeaveGroup={this.props.handleLeaveGroup}
                 currentUser={user}
               />
             ))}

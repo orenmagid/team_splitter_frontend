@@ -6,7 +6,7 @@ export default function TeamCard({ team, name }) {
   });
   return (
     <React.Fragment>
-      <div className="ui card blue ">
+      <div className="ui card blue bottom-margin">
         <div className="content">
           <div className="header">{name}</div>
           <div className="meta" />
@@ -14,11 +14,11 @@ export default function TeamCard({ team, name }) {
             {team.reverse().map(player => {
               return (
                 <p key={player.id}>
-                  {" "}
                   <img
+                    alt={player.id}
                     className="ui bordered avatar image"
                     src="../noun_Basketball_1671463.svg"
-                  />{" "}
+                  />
                   {player.name}
                 </p>
               );

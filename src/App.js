@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter, Route, Link, Switch } from "react-router-dom";
+import { Route } from "react-router-dom";
 import MakeComparisonsContainer from "./Containers/MakeComparisonsContainer";
 import ShowComparisonsContainer from "./Containers/ShowComparisonsContainer";
 import NavBar from "./Components/NavBar";
@@ -131,6 +131,24 @@ class App extends Component {
       });
   };
 
+  // handleLeaveGroup = (group, user) => {
+  //   data = {
+  //     groupId: group.id
+  //   };
+  //   fetch(
+  //     `https://limitless-bayou-72938.herokuapp.com//api/v1/users/${user.id}`,
+  //     {
+  //       method: "PATCH",
+  //       body: JSON.stringify(data),
+  //       headers: {
+  //         "Content-Type": "application/json"
+  //       }
+  //     }
+  //   )
+  //     .then(res => res.json())
+  //     .then(user => console.log(user));
+  // };
+
   render() {
     return (
       <div className="App">
@@ -158,6 +176,7 @@ class App extends Component {
               render={routerProps => (
                 <UserContainer
                   {...routerProps}
+                  handleLeaveGroup={this.handleLeaveGroup}
                   handleUserInfoUpdate={this.getUpdatedUserInfo}
                   user={this.state.user}
                   handleMakeClick={this.handleMakeClick}

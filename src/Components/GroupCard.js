@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter, Route, Link, Switch } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default class GroupCard extends Component {
   state = {
@@ -58,11 +58,25 @@ export default class GroupCard extends Component {
   }
 
   render() {
-    const { group, handleMakeClick, handleShowClick } = this.props;
+    const {
+      group,
+      handleMakeClick,
+      handleShowClick,
+      currentUser,
+      handleLeaveGroup
+    } = this.props;
 
     return (
       <React.Fragment>
         <div className="card">
+          <div>
+            <button
+              onClick={() => handleLeaveGroup(group, currentUser)}
+              className="ui left floated circular secondary basic button"
+            >
+              Leave Group
+            </button>
+          </div>
           <div className="content">
             <div className="header"> Group: {group.name}</div>
             <div className="meta">Group id: {group.id}</div>
@@ -84,9 +98,7 @@ export default class GroupCard extends Component {
           <div className="extra content" />
           <Link to={`/makecomparisons`}>
             <button
-              onClick={() =>
-                this.props.handleMakeClick(group, this.state.users)
-              }
+              onClick={() => handleMakeClick(group, this.state.users)}
               className="ui secondary basic button"
             >
               Make Comparisons
@@ -100,7 +112,7 @@ export default class GroupCard extends Component {
               Show Comparisons
             </button>
           </Link>
-          <div class="ui divider" />
+          <div className="ui divider" />
 
           <form className="ui form" onSubmit={this.handleAddToGroupSubmit}>
             <div className="field">

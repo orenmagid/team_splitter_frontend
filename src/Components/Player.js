@@ -93,7 +93,7 @@ export default class Player extends Component {
             <img
               className="ui medium rounded image"
               src={url}
-              alt="player-picture"
+              alt="player headshot"
             />
             <div className="header">
               {this.props.player.first_name + " " + this.props.player.last_name}
