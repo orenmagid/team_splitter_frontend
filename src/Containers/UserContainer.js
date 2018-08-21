@@ -47,7 +47,7 @@ export default class UserContainer extends Component {
       }
     })
       .then(response => response.json())
-      .then(jsonData => this.props.getUpdatedUserInfo(jsonData.users[0]));
+      .then(jsonData => this.props.handleUserInfoUpdate(jsonData.users[0]));
   };
 
   removeDuplicates(myArr, prop) {
@@ -100,7 +100,7 @@ export default class UserContainer extends Component {
 
             <div className="card">
               <div className="content">
-                <div className="header"> Join A Group</div>
+                <div className="header"> Join a Group</div>
                 <div className="meta" />
                 <div className="description" />
               </div>

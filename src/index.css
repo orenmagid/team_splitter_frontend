@@ -22,10 +22,24 @@ img {
 }
 
 .container {
-  margin-top: 15px;
+  margin-top: 25px;
 }
 
 .ui.button.block {
   display: block;
   margin: auto;
+}
+
+.bottom-margin {
+  margin-bottom: 35px;
+}
+
+.top-margin {
+  margin-top: 25px;
+}
+
+.tiny {
+  margin-top: 10px;
+  margin-left: 25px;
+  margin-right: 25px;
 }

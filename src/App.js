@@ -135,6 +135,14 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
+          {/* <img
+            className="ui tiny left floated image"
+            src="../noun_Basketball_1209169.png"
+          />
+          <img
+            className="ui tiny right floated image"
+            src="../noun_Basketball_201883.svg"
+          />{" "} */}
           <NavBar user={this.state.user} handleSubmit={this.handleSubmit} />
         </header>
         <div>

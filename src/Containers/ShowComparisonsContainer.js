@@ -101,7 +101,7 @@ export default class ShowComparisonsContainer extends Component {
             Back to Dashboard
           </button>
         </Link>
-        <h2>{this.props.group.name}</h2>
+        <h2 className="bottom-margin">{this.props.group.name}</h2>
         <div className="ui two doubling stackable cards">
           {this.state.showTeams ? (
             <React.Fragment>
@@ -114,7 +114,7 @@ export default class ShowComparisonsContainer extends Component {
         {this.state.activePlayers.length >= 4 ? (
           <button
             onClick={this.getEvenNumOfPlayers}
-            className="ui secondary basic centered button"
+            className="ui secondary basic centered button top-margin"
           >
             {this.state.showTeams && this.state.activePlayers.length > 4
               ? "Regenerate Teams"
