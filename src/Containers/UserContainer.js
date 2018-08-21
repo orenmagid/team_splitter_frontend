@@ -25,7 +25,7 @@ export default class UserContainer extends Component {
       }
     )
       .then(response => response.json())
-      .then(jsonData => this.props.getUpdatedUserInfo(this.props.user));
+      .then(jsonData => this.props.handleUserInfoUpdate(this.props.user));
   };
 
   handleNewGroupSubmit = e => {
@@ -63,7 +63,7 @@ export default class UserContainer extends Component {
           <h2>Welcome, {user.name}!</h2>
           <div className="ui three doubling stackable cards">
             <div className="card">
-              <div class="image">
+              <div className="image">
                 <img src="../noun_basketball_player_1646799-transparent-background.svg" />
               </div>
               <div className="content">
@@ -89,7 +89,7 @@ export default class UserContainer extends Component {
             </div>
 
             <div className="card">
-              <div class="image rounded">
+              <div className="image rounded">
                 <img src="../noun_Basketball_1671463-round-white-background.svg" />
               </div>
               <div className="content">
