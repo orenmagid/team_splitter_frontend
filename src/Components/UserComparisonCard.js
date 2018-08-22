@@ -32,12 +32,12 @@ export default class UserComparisonCard extends Component {
 
     let avgPie = sumPie / userComparisons.length;
 
-    let sumUSG = 0;
-    for (let i = 0; i < userComparisons.length; i++) {
-      sumUSG += parseFloat(userComparisons[i].usg, 10) * 100;
-    }
-
-    let avgUSG = sumUSG / userComparisons.length;
+    // let sumUSG = 0;
+    // for (let i = 0; i < userComparisons.length; i++) {
+    //   sumUSG += parseFloat(userComparisons[i].usg, 10) * 100;
+    // }
+    //
+    // let avgUSG = sumUSG / userComparisons.length;
 
     // let sumOff = 0;
     // for (let i = 0; i < userComparisons.length; i++) {
@@ -71,7 +71,7 @@ export default class UserComparisonCard extends Component {
               {userComparisons.length !== 0 ? (
                 <React.Fragment>
                   <p>Average PIE of Comparisons: {avgPie.toFixed(2)}</p>
-                  <p>Average Usage Percentage: {avgUSG.toFixed(2)}%</p>
+                  {/* <p>Average Usage Percentage: {avgUSG.toFixed(2)}%</p> */}
                   {/* <p>
                     Average Off. Efficiency of Comparisons: {avgOff.toFixed(2)}
                   </p>
@@ -91,7 +91,7 @@ export default class UserComparisonCard extends Component {
                 onChange={() => this.handleToggle(avgPie)}
                 checked={this.state.active}
               />
-              <label>Currently Playing?</label>
+              <label>Playing?</label>
             </div>
           </div>
         </div>
