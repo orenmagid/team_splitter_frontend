@@ -27,15 +27,22 @@ export default class ComparisonExplanationAccordian extends Component {
         </Accordion.Title>
         <Accordion.Content active={activeIndex === 0}>
           <p>
-            Player Impact Estimate (PIE) attempts to measure a player's overall
-            statistical contribution against the total statistics in games they
-            play. Below are five NBA players, along with this measure of their
-            statistical impact on games. If these five players made up a team,
-            they would have varying impacts on their team's chances of winning.
-            The same is probably true of people in your group. If we assume that
-            PIE measures this impact on a team's chances of winning, which of
-            the below NBA players' PIE best represents {this.props.player.name}'s
-            impact on his or her team's chances of winning?
+            <a
+              href="https://stats.nba.com/help/glossary/#pie"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Player Impact Estimate (PIE)
+            </a>
+            attempts to measure a player's overall statistical contribution
+            against the total statistics in games they play. Below are five NBA
+            players, along with this measure of their statistical impact on
+            games. If these five players made up a team, they would have varying
+            impacts on their team's chances of winning. The same is probably
+            true of people in your group. If we assume that PIE measures this
+            impact on a team's chances of winning, which of the below NBA
+            players' PIE best represents {this.props.player.name}'s impact on
+            his or her team's chances of winning?
           </p>
         </Accordion.Content>
         <Accordion.Title

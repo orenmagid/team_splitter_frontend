@@ -41,9 +41,15 @@ export default class GenerateTeamsExplanationAccordian extends Component {
         </Accordion.Title>
         <Accordion.Content active={activeIndex === 1}>
           <p>
-            Player Impact Estimate (PIE) attempts to measure a player's overall
-            statistical contribution against the total statistics in games they
-            play.
+            <a
+              href="https://stats.nba.com/help/glossary/#pie"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Player Impact Estimate (PIE)
+            </a>{" "}
+            attempts to measure a player's overall statistical contribution
+            against the total statistics in games they play.
           </p>
         </Accordion.Content>
         <Accordion.Title
