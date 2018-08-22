@@ -7,7 +7,6 @@ export default class Player extends Component {
   };
 
   // componentDidMount() {
-  //   console.log("Inside componentDidMount");
   //   fetch(
   //     `http://stats.nba.com/stats/playerdashboardbyyearoveryear/?measureType=Advanced&perMode=PerGame&plusMinus=N&paceAdjust=N&rank=N&leagueId=00&season=2017-18&seasonType=Regular+Season&playerId=${
   //       this.props.player.person_id
@@ -15,7 +14,6 @@ export default class Player extends Component {
   //   )
   //     .then(res => res.json())
   //     .then(jsonData => {
-  //       console.log("Inside fetch");
   //       let offrtg = jsonData["resultSets"][0]["rowSet"][0][11];
   //       let dfrtg = jsonData["resultSets"][0]["rowSet"][0][12];
   //       let pie = jsonData["resultSets"][0]["rowSet"][0][24];
@@ -27,8 +25,6 @@ export default class Player extends Component {
   //         pie: pie,
   //         usg: usg
   //       };
-  //       console.log(this.props.player.first_name, this.props.player.last_name);
-  //       console.log(data);
   //       this.setState({
   //         data: data
   //       });
@@ -36,7 +32,6 @@ export default class Player extends Component {
   // }
   //
   // patchPlayerStats = () => {
-  //   console.log("this.state.data", this.state.data);
   //   fetch(
   //     `https://limitless-bayou-72938.herokuapp.com/api/v1/nba_players/${
   //       this.props.player.id
@@ -56,22 +51,17 @@ export default class Player extends Component {
   //   )
   //     .then(res => res.json())
   //     .then(jsonData => {
-  //       console.log(jsonData);
   //     });
   // };
 
   render() {
     let suffix = "";
-    // console.log("this.props.player.last_name", this.props.player.last_name);
     let lastName = this.props.player.last_name.split(" ")[0].toLowerCase();
-    // console.log("lastName", lastName);
     suffix = this.props.player.last_name.split(" ")[1];
 
-    // console.log("suffix", suffix);
     if (suffix !== "" && suffix !== undefined) {
       lastName = `${lastName}_${suffix.toLowerCase().split(".")[0]}`;
     }
-    // console.log(lastName);
 
     let url;
     if (lastName === "") {

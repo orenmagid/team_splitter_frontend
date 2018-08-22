@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 // import { Route, Link } from "react-router-dom";
 import GroupCard from "../Components/GroupCard";
+import DashboardSegment from "../Components/DashboardSegment";
 
 export default class UserContainer extends Component {
   removeDuplicates(myArr, prop) {
@@ -11,15 +12,18 @@ export default class UserContainer extends Component {
 
   render() {
     let user = this.props.user;
-    console.log("user", user);
     if (user !== null) {
       return (
         <div className="ui container">
           <h2>Welcome, {user.name}!</h2>
+          <DashboardSegment />
           <div className="ui three doubling stackable cards">
             <div className="card">
               <div className="image">
-                <img src="../noun_basketball_player_1646799-transparent-background.svg" />
+                <img
+                  src="../noun_basketball_player_1646799-transparent-background.svg"
+                  alt="basketball-player"
+                />
               </div>
               <div className="content">
                 <div className="header"> Create New Group</div>
@@ -48,7 +52,10 @@ export default class UserContainer extends Component {
 
             <div className="card">
               <div className="image rounded">
-                <img src="../noun_Basketball_1671463-round-white-background.svg" />
+                <img
+                  src="../noun_Basketball_1671463-round-white-background.svg"
+                  alt="basketball-player"
+                />
               </div>
               <div className="content">
                 <div className="header"> Join a Group</div>

@@ -79,7 +79,7 @@ export default class GroupCard extends Component {
           </div>
           <div className="content">
             <div className="header"> Group: {group.name}</div>
-            <div className="meta">Group id: {group.id}</div>
+            <div className="meta">Group #: {group.id}</div>
             <div className="description" />
             <div className="ui mini horizontal divided list">
               {this.state.users.map(user => {

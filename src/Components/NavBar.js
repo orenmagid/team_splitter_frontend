@@ -8,28 +8,8 @@ const NavBar = ({
   createNewUser,
   displayNewUserForm
 }) => {
-  // const activeStyle = {
-  //   background: "black"
-  // };
-  //
-  // const style = {
-  //   color: "white"
-  // };
   return (
     <div className="ui container">
-      {/* {user ? (
-        // <div className="ui three item menu">
-        //   <NavLink
-        //     className="item"
-        //     exact
-        //     to="/"
-        //     style={style}
-        //     activeStyle={activeStyle}
-        //   >
-        //     User Profile
-        //   </NavLink>
-        // </div>
-      ) : null} */}
       {!user && !displayNewUserForm ? (
         <Link to={`/newuser`}>
           <button
@@ -52,10 +32,13 @@ const NavBar = ({
           </button>
         </Link>
       ) : (
-        <form className="" onSubmit={handleSubmit}>
+        <form className="ui right floated" onSubmit={handleSubmit}>
           <input name="username" type="text" />
 
-          <button type="submit" className="ui inverted secondary basic button">
+          <button
+            type="submit"
+            className="ui inverted secondary basic button left-margin"
+          >
             Login
           </button>
         </form>

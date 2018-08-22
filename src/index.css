@@ -38,6 +38,10 @@ img {
   margin-top: 25px;
 }
 
+.ui.button.left-margin {
+  margin-left: 15px;
+}
+
 h1:first-child {
   margin-top: 25px;
   font-family: "Permanent Marker", cursive;
@@ -53,4 +57,8 @@ h2 {
   margin-top: 10px;
   margin-left: 25px;
   margin-right: 25px;
+}
+
+data-tooltip]:after {
+  max-width: 50%;
 }

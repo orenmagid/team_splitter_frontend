@@ -16,10 +16,6 @@ export default class ComparisonsContainer extends Component {
     fetch("https://limitless-bayou-72938.herokuapp.com/api/v1/nba_players")
       .then(res => res.json())
       .then(jsonData => {
-        // console.log(jsonData);
-        // this.setState({
-        //   allNbaPlayers: jsonData
-        // });
         this.allNbaPlayers = jsonData;
         this.setState({
           selectedUser: this.state.selectedUser
@@ -31,14 +27,7 @@ export default class ComparisonsContainer extends Component {
     fetch("https://limitless-bayou-72938.herokuapp.com/api/v1/nba_players")
       .then(res => res.json())
       .then(jsonData => {
-        // console.log(jsonData);
-        // this.setState({
-        //   allNbaPlayers: jsonData
-        // });
         this.allNbaPlayers = jsonData;
-        // this.setState({
-        //   selectedUser: this.state.selectedUser
-        // });
       });
   }
 
@@ -48,7 +37,6 @@ export default class ComparisonsContainer extends Component {
       let currentUser = this.props.users.find(user => {
         return user.id === parseInt(event.target.value);
       });
-      console.log(currentUser);
       this.setState({
         selectedUser: currentUser
       });
@@ -60,8 +48,6 @@ export default class ComparisonsContainer extends Component {
     });
   };
   render() {
-    console.log("this.allNbaPlayers", this.allNbaPlayers);
-
     let players = (
       <React.Fragment>
         <h3>

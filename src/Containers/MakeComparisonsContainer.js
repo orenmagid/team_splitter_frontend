@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Player from "../Components/Player";
 import { Redirect } from "react-router-dom";
+import ComparisonExplanationAccordian from "../Components/ComparisonExplanationAccordian";
 
 export default class MakeComparisonsContainer extends Component {
   constructor(props) {
@@ -58,18 +59,15 @@ export default class MakeComparisonsContainer extends Component {
       headers: {
         "Content-Type": "application/json"
       }
-    })
-      .then(response => response.json())
-      .then(console.log);
+    }).then(response => response.json());
   };
 
   handleSelect = event => {
     event.preventDefault();
     if (event.target.value !== "default") {
       let currentUser = this.props.users.find(user => {
-        return user.id === parseInt(event.target.value);
+        return user.id === parseInt(event.target.value, 10);
       });
-      console.log(currentUser);
       this.setState({
         selectedUser: currentUser
       });
@@ -82,16 +80,20 @@ export default class MakeComparisonsContainer extends Component {
   };
   render() {
     if (this.props.users.length === 0) {
-      console.log("Here we are!");
       return <Redirect to="/" />;
     }
+
     let players = (
       <React.Fragment>
         <h3>
-          In group {this.props.group.name}, which player is{" "}
+          In the context of {this.props.group.name}, which player is{" "}
           {this.state.selectedUser.name} most similar to.
         </h3>
-        <div className="ui three doubling stackable cards">
+
+        <ComparisonExplanationAccordian player={this.state.selectedUser} />
+        <br />
+
+        <div className="ui three doubling stackable cards top-margin">
           {this.allNbaPlayers.map(player => {
             return (
               <Player
@@ -142,15 +144,7 @@ export default class MakeComparisonsContainer extends Component {
           </button>
         ) : null}
 
-        {/* Conditionally Render Some Number of Players So User Can Make Comparisons once there's a selectedUser in State
-        onClick of Player of Player Card, Post new comparison */}
         {selectedUser ? players : null}
-        {/* <button
-          onClick={this.triggerReRender}
-          className="ui secondary basic button"
-        >
-          Get New Players
-        </button> */}
       </div>
     );
   }

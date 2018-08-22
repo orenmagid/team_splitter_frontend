@@ -19,7 +19,7 @@ export default class UserComparisonCard extends Component {
   };
 
   render() {
-    let { user, comparisons, active } = this.props;
+    let { user, comparisons } = this.props;
 
     let userComparisons = comparisons.filter(
       comparison => comparison.user_id === user.id
@@ -39,19 +39,19 @@ export default class UserComparisonCard extends Component {
 
     let avgUSG = sumUSG / userComparisons.length;
 
-    let sumOff = 0;
-    for (let i = 0; i < userComparisons.length; i++) {
-      sumOff += parseFloat(userComparisons[i].offrtg, 10);
-    }
-
-    let avgOff = sumOff / userComparisons.length;
-
-    let sumDef = 0;
-    for (let i = 0; i < userComparisons.length; i++) {
-      sumDef += parseFloat(userComparisons[i].dfrtg, 10);
-    }
-
-    let avgDef = sumDef / userComparisons.length;
+    // let sumOff = 0;
+    // for (let i = 0; i < userComparisons.length; i++) {
+    //   sumOff += parseFloat(userComparisons[i].offrtg, 10);
+    // }
+    //
+    // let avgOff = sumOff / userComparisons.length;
+    //
+    // let sumDef = 0;
+    // for (let i = 0; i < userComparisons.length; i++) {
+    //   sumDef += parseFloat(userComparisons[i].dfrtg, 10);
+    // }
+    //
+    // let avgDef = sumDef / userComparisons.length;
 
     return (
       <React.Fragment>

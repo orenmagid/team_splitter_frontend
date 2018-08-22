@@ -5,13 +5,8 @@ import { Redirect } from "react-router-dom";
 export default class NavBar extends Component {
   render() {
     let { user, username, handleCreateUser, displayNewUserForm } = this.props;
-    console.log("this.props", this.props);
-    console.log("user", user);
-    console.log("username", username);
-    console.log("displayNewUserForm", displayNewUserForm);
 
     if (!displayNewUserForm && !user) {
-      console.log("Here we are!");
       return <Redirect to="/" />;
     }
     return (

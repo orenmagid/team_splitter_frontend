@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Redirect } from "react-router-dom";
 import UserComparisonCard from "../Components/UserComparisonCard";
 import TeamCard from "../Components/TeamCard";
+import GenerateTeamsExplanationAccordian from "../Components/GenerateTeamsExplanationAccordian";
 
 export default class ShowComparisonsContainer extends Component {
   state = {
@@ -36,7 +37,6 @@ export default class ShowComparisonsContainer extends Component {
         activePlayers = activePlayers.filter(player => {
           return player !== activePlayers[index];
         });
-        console.log("index", index);
       }
 
       this.generateTeams(activePlayers);
@@ -49,22 +49,17 @@ export default class ShowComparisonsContainer extends Component {
     let randPie2 = Math.floor(Math.random() * 19);
     activePlayers.sort((a, b) => {
       if (isNaN(parseFloat(a.pie)) && isNaN(parseFloat(b.pie))) {
-        console.log("randPie1", randPie1);
-        console.log("randPie2", randPie2);
         return randPie1 - randPie2;
       }
       if (isNaN(parseFloat(a.pie))) {
-        console.log("randPie", randPie);
         return randPie - b.pie;
       }
       if (isNaN(parseFloat(b.pie))) {
-        console.log("randPie", randPie);
         return a.pie - randPie;
       }
       return a.pie - b.pie;
     });
     activePlayers.reverse();
-    console.log("activePlayers", activePlayers);
     let teamA = [];
     let teamB = [];
     for (let i = 0; i < activePlayers.length; i++) {
@@ -83,9 +78,6 @@ export default class ShowComparisonsContainer extends Component {
       }
     }
 
-    console.log("teamA", teamA);
-    console.log("teamB", teamB);
-
     this.setState({
       teamA: teamA,
       teamB: teamB,
@@ -95,7 +87,6 @@ export default class ShowComparisonsContainer extends Component {
 
   render() {
     if (this.props.users.length === 0) {
-      console.log("Here we are!");
       return <Redirect to="/" />;
     }
     return (
@@ -107,6 +98,8 @@ export default class ShowComparisonsContainer extends Component {
           </button>
         </Link>
         <h2 className="bottom-margin">{this.props.group.name}</h2>
+        <GenerateTeamsExplanationAccordian />
+        <br />
         <div className="ui two doubling stackable cards">
           {this.state.showTeams ? (
             <React.Fragment>
@@ -115,6 +108,7 @@ export default class ShowComparisonsContainer extends Component {
             </React.Fragment>
           ) : null}
         </div>
+        <br />
 
         {this.state.activePlayers.length >= 4 ? (
           <button

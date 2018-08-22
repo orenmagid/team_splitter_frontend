@@ -21,7 +21,6 @@ class App extends Component {
   //-----------------User Login and Logout Functionality-----------------//
   handleSubmit = e => {
     e.preventDefault();
-    console.log("Inside handleSubmit");
     const username = e.currentTarget.username.value;
     this.getUser(username);
     this.setState({
@@ -30,7 +29,6 @@ class App extends Component {
   };
 
   getUser = username => {
-    console.log("Inside getUser");
     fetch(`https://limitless-bayou-72938.herokuapp.com//api/v1/users`)
       .then(response => response.json())
       .then(users => {
@@ -39,8 +37,6 @@ class App extends Component {
   };
 
   checkForExistingUser = (users, username) => {
-    console.log("Inside checkForExistingUser");
-    console.log(users);
     const user = users.find(user => user.username === username);
 
     if (user === undefined) {
@@ -64,7 +60,6 @@ class App extends Component {
   };
   //-------------------Create New User Functionality------------------//
   createNewUser = username => {
-    console.log("Inside createNewUser");
     this.setState({
       displayNewUserForm: true
     });
@@ -89,7 +84,6 @@ class App extends Component {
     })
       .then(response => response.json())
       .then(jsonData => {
-        console.log(jsonData.errors);
         if (jsonData.errors.length !== 0) {
           this.displayErrors(jsonData.errors);
         } else {
@@ -142,7 +136,6 @@ class App extends Component {
   };
 
   fetchGroupForComparisons = group => {
-    console.log(group.id);
     fetch(`https://limitless-bayou-72938.herokuapp.com/api/v1/comparisons`)
       .then(response => response.json())
       .then(comparisonsData => {
@@ -219,14 +212,6 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          {/* <img
-            className="ui tiny left floated image"
-            src="../noun_Basketball_1209169.png"
-          />
-          <img
-            className="ui tiny right floated image"
-            src="../noun_Basketball_201883.svg"
-          />{" "} */}
           <NavBar
             username={this.state.username}
             displayNewUserForm={this.state.displayNewUserForm}
@@ -239,10 +224,11 @@ class App extends Component {
         <div>
           {this.state.user || this.state.displayNewUserForm ? null : (
             <React.Fragment>
-              <h1 className="">Team Picker</h1>
+              <h1 className="">Team Splitter</h1>
               <img
                 className="ui centered middle aligned large image"
                 src="../noun_Basketball_1671463.svg"
+                alt="basketball-player-dunking"
               />
             </React.Fragment>
           )}
