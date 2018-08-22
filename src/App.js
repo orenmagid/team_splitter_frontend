@@ -84,7 +84,7 @@ class App extends Component {
     })
       .then(response => response.json())
       .then(jsonData => {
-        if (jsonData.errors.length !== 0) {
+        if (jsonData.errors) {
           this.displayErrors(jsonData.errors);
         } else {
           this.setState({
