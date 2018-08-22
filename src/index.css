@@ -59,6 +59,6 @@ h2 {
   margin-right: 25px;
 }
 
-data-tooltip]:after {
-  max-width: 50%;
+.ui.image {
+  -webkit-box-shadow: 0px 0px 0px #f7fbff;
 }
