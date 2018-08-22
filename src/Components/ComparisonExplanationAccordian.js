@@ -33,7 +33,7 @@ export default class ComparisonExplanationAccordian extends Component {
               rel="noopener noreferrer"
             >
               Player Impact Estimate (PIE)
-            </a>
+            </a>{" "}
             attempts to measure a player's overall statistical contribution
             against the total statistics in games they play. Below are five NBA
             players, along with this measure of their statistical impact on
