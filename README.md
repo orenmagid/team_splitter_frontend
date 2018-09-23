@@ -29,7 +29,7 @@ Might this lead to hurt feelings, or even fights? It's possible. But does being 
 You can check it out at https://team-splitter.herokuapp.com/. Because Heroku's <a href="https://devcenter.heroku.com/articles/free-dyno-hours">free dyno hours</a> <a href="https://devcenter.heroku.com/articles/free-dyno-hours#dyno-sleeping">go to sleep</a> if the app hasn't been used in thirty minutes, the app may be unresponsive for about 30 secs when you first attempt to use it. Unfortunately, this applies to the frontend and the backend. So, it may be about thirty seconds before the webpage loads, and then another delay before the database is responsive.
 
 
-To login as a demo user, user the username "jimmy".
+To login as a demo user, use the username "jimmy".
 
 
 ## License
